@@ -369,6 +369,43 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFarmFarm extends Struct.CollectionTypeSchema {
+  collectionName: 'farms';
+  info: {
+    description: '';
+    displayName: 'Farm';
+    pluralName: 'farms';
+    singularName: 'farm';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Crop_Type: Schema.Attribute.Enumeration<['Turmeric', 'Special Turmeric']>;
+    Cultivation_Method: Schema.Attribute.Enumeration<
+      ['Organic', 'Conventional']
+    >;
+    Farm_Address: Schema.Attribute.String;
+    Farm_Name: Schema.Attribute.String;
+    Farm_Size: Schema.Attribute.Decimal;
+    Farm_Size_Unit: Schema.Attribute.Enumeration<['Acres', 'Rai']>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::farm.farm'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -838,6 +875,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    farms: Schema.Attribute.Relation<'oneToMany', 'api::farm.farm'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -882,6 +920,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::farm.farm': ApiFarmFarm;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

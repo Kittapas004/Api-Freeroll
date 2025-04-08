@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "farms",
+  "info": {
+    "singularName": "farm",
+    "pluralName": "farms",
+    "displayName": "Farm",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Crop_Type": {
+      "type": "enumeration",
+      "enum": [
+        "Turmeric",
+        "Special Turmeric"
+      ]
+    },
+    "Cultivation_Method": {
+      "type": "enumeration",
+      "enum": [
+        "Organic",
+        "Conventional"
+      ]
+    },
+    "Farm_Size_Unit": {
+      "type": "enumeration",
+      "enum": [
+        "Acres",
+        "Rai"
+      ]
+    },
+    "Farm_Size": {
+      "type": "decimal"
+    },
+    "Farm_Address": {
+      "type": "string"
+    },
+    "Farm_Name": {
+      "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "farms"
+    }
+  }
+}

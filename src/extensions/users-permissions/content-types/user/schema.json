@@ -86,6 +86,12 @@
         "Admin"
       ],
       "required": true
+    },
+    "farms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::farm.farm",
+      "mappedBy": "user"
     }
   }
 }
