@@ -92,6 +92,12 @@
       "relation": "oneToMany",
       "target": "api::farm.farm",
       "mappedBy": "user"
+    },
+    "batches": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::batch.batch",
+      "mappedBy": "user"
     }
   }
 }

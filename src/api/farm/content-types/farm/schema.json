@@ -46,6 +46,24 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "farms"
+    },
+    "batches": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::batch.batch",
+      "mappedBy": "Farm"
+    },
+    "Farm_Status": {
+      "type": "enumeration",
+      "enum": [
+        "Planted",
+        "Fertilized",
+        "Harvested",
+        "Lab Submitted"
+      ]
+    },
+    "user_documentId": {
+      "type": "string"
     }
   }
 }

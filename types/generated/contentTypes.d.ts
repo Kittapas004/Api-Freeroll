@@ -369,6 +369,64 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
+  collectionName: 'batches';
+  info: {
+    description: '';
+    displayName: 'Batch';
+    pluralName: 'batches';
+    singularName: 'batch';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Batch_id: Schema.Attribute.String;
+    Batch_image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    Batch_Status: Schema.Attribute.Enumeration<
+      [
+        'Completed Successfully',
+        'Pending Actions',
+        'Issues Detected',
+        'Completed Past Data',
+      ]
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Cultivation_Method: Schema.Attribute.String;
+    Date_of_Planting: Schema.Attribute.Date;
+    Farm: Schema.Attribute.Relation<'manyToOne', 'api::farm.farm'>;
+    fertilizer_records: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fertilizer-record.fertilizer-record'
+    >;
+    harvest_records: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::harvest-record.harvest-record'
+    >;
+    lab_submission_records: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lab-submission-record.lab-submission-record'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::batch.batch'> &
+      Schema.Attribute.Private;
+    Plant_Variety: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    user_documentId: Schema.Attribute.String;
+  };
+}
+
 export interface ApiFarmFarm extends Struct.CollectionTypeSchema {
   collectionName: 'farms';
   info: {
@@ -381,6 +439,7 @@ export interface ApiFarmFarm extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    batches: Schema.Attribute.Relation<'oneToMany', 'api::batch.batch'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -392,6 +451,9 @@ export interface ApiFarmFarm extends Struct.CollectionTypeSchema {
     Farm_Name: Schema.Attribute.String;
     Farm_Size: Schema.Attribute.Decimal;
     Farm_Size_Unit: Schema.Attribute.Enumeration<['Acres', 'Rai']>;
+    Farm_Status: Schema.Attribute.Enumeration<
+      ['Planted', 'Fertilized', 'Harvested', 'Lab Submitted']
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::farm.farm'> &
       Schema.Attribute.Private;
@@ -403,6 +465,127 @@ export interface ApiFarmFarm extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    user_documentId: Schema.Attribute.String;
+  };
+}
+
+export interface ApiFertilizerRecordFertilizerRecord
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'fertilizer_records';
+  info: {
+    displayName: 'Fertilizer_Record';
+    pluralName: 'fertilizer-records';
+    singularName: 'fertilizer-record';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    batch: Schema.Attribute.Relation<'manyToOne', 'api::batch.batch'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Date: Schema.Attribute.Date;
+    Fertilizer_type: Schema.Attribute.Enumeration<['Organic', 'Conventional']>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fertilizer-record.fertilizer-record'
+    > &
+      Schema.Attribute.Private;
+    Method: Schema.Attribute.Enumeration<['Spray', 'Broadcast']>;
+    Note: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    Quantity_applied: Schema.Attribute.Decimal;
+    Quantity_applied_unit: Schema.Attribute.Enumeration<['kg', 'g']>;
+    Size: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHarvestRecordHarvestRecord
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'harvest_records';
+  info: {
+    description: '';
+    displayName: 'Harvest_Record';
+    pluralName: 'harvest-records';
+    singularName: 'harvest-record';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Amount_report: Schema.Attribute.Integer;
+    batch: Schema.Attribute.Relation<'manyToOne', 'api::batch.batch'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Curcumin_quality: Schema.Attribute.Decimal;
+    Date: Schema.Attribute.Date;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::harvest-record.harvest-record'
+    > &
+      Schema.Attribute.Private;
+    Method: Schema.Attribute.Enumeration<
+      ['Manual Harvesting', 'Machine Harvesting']
+    >;
+    Note: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    quality_grade: Schema.Attribute.Enumeration<
+      ['Grade A', 'Grade B', 'Grade C', 'Grade D', 'Grade F']
+    >;
+    Result_type: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    yleld: Schema.Attribute.Decimal;
+    Yleld_unit: Schema.Attribute.Enumeration<['kg', 'g']>;
+  };
+}
+
+export interface ApiLabSubmissionRecordLabSubmissionRecord
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'lab_submission_records';
+  info: {
+    displayName: 'Lab_Submission_Record';
+    pluralName: 'lab-submission-records';
+    singularName: 'lab-submission-record';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    batch: Schema.Attribute.Relation<'manyToOne', 'api::batch.batch'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Date: Schema.Attribute.Date;
+    Lab_name: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lab-submission-record.lab-submission-record'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Quality_grade: Schema.Attribute.Enumeration<
+      ['Grade A', 'Grade B', 'Grade C', 'Grade D', 'Grade F']
+    >;
+    Report: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    Submission_status: Schema.Attribute.Enumeration<
+      ['Completed', 'Pending', 'Failed']
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -864,6 +1047,7 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     avatar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    batches: Schema.Attribute.Relation<'oneToMany', 'api::batch.batch'>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -920,7 +1104,11 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::batch.batch': ApiBatchBatch;
       'api::farm.farm': ApiFarmFarm;
+      'api::fertilizer-record.fertilizer-record': ApiFertilizerRecordFertilizerRecord;
+      'api::harvest-record.harvest-record': ApiHarvestRecordHarvestRecord;
+      'api::lab-submission-record.lab-submission-record': ApiLabSubmissionRecordLabSubmissionRecord;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

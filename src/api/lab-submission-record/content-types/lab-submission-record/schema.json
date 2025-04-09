@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lab_submission_records",
+  "info": {
+    "singularName": "lab-submission-record",
+    "pluralName": "lab-submission-records",
+    "displayName": "Lab_Submission_Record"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Date": {
+      "type": "date"
+    },
+    "Lab_name": {
+      "type": "string"
+    },
+    "Quality_grade": {
+      "type": "enumeration",
+      "enum": [
+        "Grade A",
+        "Grade B",
+        "Grade C",
+        "Grade D",
+        "Grade F"
+      ]
+    },
+    "Submission_status": {
+      "type": "enumeration",
+      "enum": [
+        "Completed",
+        "Pending",
+        "Failed"
+      ]
+    },
+    "Report": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "batch": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::batch.batch",
+      "inversedBy": "lab_submission_records"
+    }
+  }
+}

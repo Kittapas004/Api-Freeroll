@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fertilizer_records",
+  "info": {
+    "singularName": "fertilizer-record",
+    "pluralName": "fertilizer-records",
+    "displayName": "Fertilizer_Record"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Date": {
+      "type": "date"
+    },
+    "Quantity_applied": {
+      "type": "decimal"
+    },
+    "Size": {
+      "type": "decimal"
+    },
+    "Note": {
+      "type": "text"
+    },
+    "Method": {
+      "type": "enumeration",
+      "enum": [
+        "Spray",
+        "Broadcast"
+      ]
+    },
+    "Quantity_applied_unit": {
+      "type": "enumeration",
+      "enum": [
+        "kg",
+        "g"
+      ]
+    },
+    "Fertilizer_type": {
+      "type": "enumeration",
+      "enum": [
+        "Organic",
+        "Conventional"
+      ]
+    },
+    "batch": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::batch.batch",
+      "inversedBy": "fertilizer_records"
+    }
+  }
+}

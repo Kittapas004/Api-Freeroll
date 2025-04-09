@@ -1,0 +1,80 @@
+{
+  "kind": "collectionType",
+  "collectionName": "batches",
+  "info": {
+    "singularName": "batch",
+    "pluralName": "batches",
+    "displayName": "Batch",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Batch_id": {
+      "type": "string"
+    },
+    "Farm": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::farm.farm",
+      "inversedBy": "batches"
+    },
+    "Date_of_Planting": {
+      "type": "date"
+    },
+    "Batch_Status": {
+      "type": "enumeration",
+      "enum": [
+        "Completed Successfully",
+        "Pending Actions",
+        "Issues Detected",
+        "Completed Past Data"
+      ]
+    },
+    "Plant_Variety": {
+      "type": "string"
+    },
+    "Batch_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Cultivation_Method": {
+      "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "batches"
+    },
+    "user_documentId": {
+      "type": "string"
+    },
+    "fertilizer_records": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::fertilizer-record.fertilizer-record",
+      "mappedBy": "batch"
+    },
+    "harvest_records": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::harvest-record.harvest-record",
+      "mappedBy": "batch"
+    },
+    "lab_submission_records": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lab-submission-record.lab-submission-record",
+      "mappedBy": "batch"
+    }
+  }
+}

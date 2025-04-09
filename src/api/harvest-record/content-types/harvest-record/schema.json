@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "harvest_records",
+  "info": {
+    "singularName": "harvest-record",
+    "pluralName": "harvest-records",
+    "displayName": "Harvest_Record",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Date": {
+      "type": "date"
+    },
+    "yleld": {
+      "type": "decimal"
+    },
+    "quality_grade": {
+      "type": "enumeration",
+      "enum": [
+        "Grade A",
+        "Grade B",
+        "Grade C",
+        "Grade D",
+        "Grade F"
+      ]
+    },
+    "Method": {
+      "type": "enumeration",
+      "enum": [
+        "Manual Harvesting",
+        "Machine Harvesting"
+      ]
+    },
+    "Note": {
+      "type": "text"
+    },
+    "Result_type": {
+      "type": "string"
+    },
+    "Curcumin_quality": {
+      "type": "decimal"
+    },
+    "Amount_report": {
+      "type": "integer"
+    },
+    "Yleld_unit": {
+      "type": "enumeration",
+      "enum": [
+        "kg",
+        "g"
+      ]
+    },
+    "batch": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::batch.batch",
+      "inversedBy": "harvest_records"
+    }
+  }
+}
