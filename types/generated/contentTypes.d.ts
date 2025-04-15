@@ -398,6 +398,10 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     Cultivation_Method: Schema.Attribute.String;
     Date_of_Planting: Schema.Attribute.Date;
+    factory_submissions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-submission.factory-submission'
+    >;
     Farm: Schema.Attribute.Relation<'manyToOne', 'api::farm.farm'>;
     fertilizer_records: Schema.Attribute.Relation<
       'oneToMany',
@@ -427,6 +431,48 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFactorySubmissionFactorySubmission
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'factory_submissions';
+  info: {
+    description: '';
+    displayName: 'Factory_Submission';
+    pluralName: 'factory-submissions';
+    singularName: 'factory-submission';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    batch: Schema.Attribute.Relation<'manyToOne', 'api::batch.batch'>;
+    Batch_id: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Date: Schema.Attribute.Date;
+    Farm_Name: Schema.Attribute.String;
+    harvest_records: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::harvest-record.harvest-record'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-submission.factory-submission'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Quality_Grade: Schema.Attribute.String;
+    Submission_status: Schema.Attribute.String;
+    Test_Type: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user_documentId: Schema.Attribute.String;
+    Yield: Schema.Attribute.Integer;
+  };
+}
+
 export interface ApiFarmFarm extends Struct.CollectionTypeSchema {
   collectionName: 'farms';
   info: {
@@ -451,9 +497,7 @@ export interface ApiFarmFarm extends Struct.CollectionTypeSchema {
     Farm_Name: Schema.Attribute.String;
     Farm_Size: Schema.Attribute.Decimal;
     Farm_Size_Unit: Schema.Attribute.Enumeration<['Acres', 'Rai']>;
-    Farm_Status: Schema.Attribute.Enumeration<
-      ['Planted', 'Fertilized', 'Harvested', 'Lab Submitted']
-    >;
+    Farm_Status: Schema.Attribute.Enumeration<['Planted', 'End Planted']>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::farm.farm'> &
       Schema.Attribute.Private;
@@ -518,13 +562,23 @@ export interface ApiHarvestRecordHarvestRecord
     draftAndPublish: true;
   };
   attributes: {
-    Amount_report: Schema.Attribute.Integer;
     batch: Schema.Attribute.Relation<'manyToOne', 'api::batch.batch'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Curcumin_quality: Schema.Attribute.Decimal;
-    Date: Schema.Attribute.Date;
+    Date: Schema.Attribute.DateTime;
+    factory_submission: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::factory-submission.factory-submission'
+    >;
+    Harvest_status: Schema.Attribute.Enumeration<
+      ['Completed', 'Pending', 'Failed', 'Waiting']
+    >;
+    lab_submission_record: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::lab-submission-record.lab-submission-record'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -540,6 +594,9 @@ export interface ApiHarvestRecordHarvestRecord
       ['Grade A', 'Grade B', 'Grade C', 'Grade D', 'Grade F']
     >;
     Result_type: Schema.Attribute.String;
+    Submission_status: Schema.Attribute.Enumeration<
+      ['Completed', 'Pending', 'Failed', 'Waiting']
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -552,6 +609,7 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
   extends Struct.CollectionTypeSchema {
   collectionName: 'lab_submission_records';
   info: {
+    description: '';
     displayName: 'Lab_Submission_Record';
     pluralName: 'lab-submission-records';
     singularName: 'lab-submission-record';
@@ -564,7 +622,11 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Date: Schema.Attribute.Date;
+    Date: Schema.Attribute.DateTime;
+    harvest_record: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::harvest-record.harvest-record'
+    >;
     Lab_name: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -581,7 +643,7 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
       true
     >;
     Submission_status: Schema.Attribute.Enumeration<
-      ['Completed', 'Pending', 'Failed']
+      ['Completed', 'Pending', 'Failed', 'Waiting']
     >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1105,6 +1167,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::batch.batch': ApiBatchBatch;
+      'api::factory-submission.factory-submission': ApiFactorySubmissionFactorySubmission;
       'api::farm.farm': ApiFarmFarm;
       'api::fertilizer-record.fertilizer-record': ApiFertilizerRecordFertilizerRecord;
       'api::harvest-record.harvest-record': ApiHarvestRecordHarvestRecord;

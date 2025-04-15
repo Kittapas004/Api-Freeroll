@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "factory_submissions",
+  "info": {
+    "singularName": "factory-submission",
+    "pluralName": "factory-submissions",
+    "displayName": "Factory_Submission",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Batch_id": {
+      "type": "string"
+    },
+    "Farm_Name": {
+      "type": "string"
+    },
+    "Test_Type": {
+      "type": "string"
+    },
+    "Quality_Grade": {
+      "type": "string"
+    },
+    "Yield": {
+      "type": "integer"
+    },
+    "Date": {
+      "type": "date"
+    },
+    "Submission_status": {
+      "type": "string"
+    },
+    "batch": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::batch.batch",
+      "inversedBy": "factory_submissions"
+    },
+    "harvest_records": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::harvest-record.harvest-record",
+      "mappedBy": "factory_submission"
+    },
+    "user_documentId": {
+      "type": "string"
+    }
+  }
+}

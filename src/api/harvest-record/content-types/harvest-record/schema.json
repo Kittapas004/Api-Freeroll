@@ -12,7 +12,7 @@
   },
   "attributes": {
     "Date": {
-      "type": "date"
+      "type": "datetime"
     },
     "yleld": {
       "type": "decimal"
@@ -43,9 +43,6 @@
     "Curcumin_quality": {
       "type": "decimal"
     },
-    "Amount_report": {
-      "type": "integer"
-    },
     "Yleld_unit": {
       "type": "enumeration",
       "enum": [
@@ -57,6 +54,36 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::batch.batch",
+      "inversedBy": "harvest_records"
+    },
+    "Harvest_status": {
+      "type": "enumeration",
+      "enum": [
+        "Completed",
+        "Pending",
+        "Failed",
+        "Waiting"
+      ]
+    },
+    "lab_submission_record": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::lab-submission-record.lab-submission-record",
+      "mappedBy": "harvest_record"
+    },
+    "Submission_status": {
+      "type": "enumeration",
+      "enum": [
+        "Completed",
+        "Pending",
+        "Failed",
+        "Waiting"
+      ]
+    },
+    "factory_submission": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::factory-submission.factory-submission",
       "inversedBy": "harvest_records"
     }
   }

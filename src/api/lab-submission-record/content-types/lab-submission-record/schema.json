@@ -4,14 +4,15 @@
   "info": {
     "singularName": "lab-submission-record",
     "pluralName": "lab-submission-records",
-    "displayName": "Lab_Submission_Record"
+    "displayName": "Lab_Submission_Record",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "attributes": {
     "Date": {
-      "type": "date"
+      "type": "datetime"
     },
     "Lab_name": {
       "type": "string"
@@ -31,24 +32,32 @@
       "enum": [
         "Completed",
         "Pending",
-        "Failed"
+        "Failed",
+        "Waiting"
       ]
     },
     "Report": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "batch": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::batch.batch",
       "inversedBy": "lab_submission_records"
+    },
+    "harvest_record": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::harvest-record.harvest-record",
+      "inversedBy": "lab_submission_record"
     }
   }
 }

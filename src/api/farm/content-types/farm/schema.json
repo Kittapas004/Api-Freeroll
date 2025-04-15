@@ -57,9 +57,7 @@
       "type": "enumeration",
       "enum": [
         "Planted",
-        "Fertilized",
-        "Harvested",
-        "Lab Submitted"
+        "End Planted"
       ]
     },
     "user_documentId": {
