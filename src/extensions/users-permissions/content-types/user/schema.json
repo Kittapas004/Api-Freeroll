@@ -98,6 +98,9 @@
       "relation": "oneToMany",
       "target": "api::batch.batch",
       "mappedBy": "user"
+    },
+    "phone": {
+      "type": "string"
     }
   }
 }

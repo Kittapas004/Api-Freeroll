@@ -444,12 +444,19 @@ export interface ApiFactorySubmissionFactorySubmission
     draftAndPublish: true;
   };
   attributes: {
+    Attachments: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     batch: Schema.Attribute.Relation<'manyToOne', 'api::batch.batch'>;
     Batch_id: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Date: Schema.Attribute.Date;
+    Date_Processed: Schema.Attribute.DateTime;
+    Date_Received: Schema.Attribute.DateTime;
+    Factory: Schema.Attribute.Enumeration<['Lamduan', 'MFU']>;
     Farm_Name: Schema.Attribute.String;
     harvest_records: Schema.Attribute.Relation<
       'oneToMany',
@@ -461,10 +468,20 @@ export interface ApiFactorySubmissionFactorySubmission
       'api::factory-submission.factory-submission'
     > &
       Schema.Attribute.Private;
+    Note: Schema.Attribute.Text;
+    Output_Capsules: Schema.Attribute.Integer;
+    Output_Essential_Oil: Schema.Attribute.Integer;
+    Processed_By: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     Quality_Grade: Schema.Attribute.String;
-    Submission_status: Schema.Attribute.String;
+    Submission_status: Schema.Attribute.Enumeration<
+      ['Completed', 'Waiting', 'Pending']
+    >;
     Test_Type: Schema.Attribute.String;
+    Turmeric_Utilization_Remaining: Schema.Attribute.Decimal;
+    Turmeric_Utilization_Used: Schema.Attribute.Decimal;
+    Turmeric_Utilization_Waste: Schema.Attribute.Decimal;
+    Unit: Schema.Attribute.Enumeration<['kg', 'g']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1133,6 +1150,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    phone: Schema.Attribute.String;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;

@@ -29,9 +29,6 @@
     "Date": {
       "type": "date"
     },
-    "Submission_status": {
-      "type": "string"
-    },
     "batch": {
       "type": "relation",
       "relation": "manyToOne",
@@ -46,6 +43,65 @@
     },
     "user_documentId": {
       "type": "string"
+    },
+    "Submission_status": {
+      "type": "enumeration",
+      "enum": [
+        "Completed",
+        "Waiting",
+        "Pending"
+      ]
+    },
+    "Unit": {
+      "type": "enumeration",
+      "enum": [
+        "kg",
+        "g"
+      ]
+    },
+    "Turmeric_Utilization_Remaining": {
+      "type": "decimal"
+    },
+    "Note": {
+      "type": "text"
+    },
+    "Output_Capsules": {
+      "type": "integer"
+    },
+    "Factory": {
+      "type": "enumeration",
+      "enum": [
+        "Lamduan",
+        "MFU"
+      ]
+    },
+    "Date_Received": {
+      "type": "datetime"
+    },
+    "Turmeric_Utilization_Used": {
+      "type": "decimal"
+    },
+    "Turmeric_Utilization_Waste": {
+      "type": "decimal"
+    },
+    "Date_Processed": {
+      "type": "datetime"
+    },
+    "Processed_By": {
+      "type": "string"
+    },
+    "Attachments": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "Output_Essential_Oil": {
+      "type": "integer"
     }
   }
 }
