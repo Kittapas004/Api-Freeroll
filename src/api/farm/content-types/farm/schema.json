@@ -57,6 +57,8 @@
       "type": "enumeration",
       "enum": [
         "Planted",
+        "Fertilized",
+        "Harvested",
         "End Planted"
       ]
     },

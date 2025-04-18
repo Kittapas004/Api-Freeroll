@@ -21,7 +21,7 @@
       "inversedBy": "batches"
     },
     "Date_of_Planting": {
-      "type": "date"
+      "type": "datetime"
     },
     "Batch_Status": {
       "type": "enumeration",
@@ -80,6 +80,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::factory-submission.factory-submission",
+      "mappedBy": "batch"
+    },
+    "notifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::notification.notification",
       "mappedBy": "batch"
     }
   }

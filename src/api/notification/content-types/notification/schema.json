@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notifications",
+  "info": {
+    "singularName": "notification",
+    "pluralName": "notifications",
+    "displayName": "Notification",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Text": {
+      "type": "text"
+    },
+    "user_documentId": {
+      "type": "string"
+    },
+    "Notification_status": {
+      "type": "enumeration",
+      "enum": [
+        "Warning",
+        "Succeed",
+        "Failed",
+        "General"
+      ]
+    },
+    "batch": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::batch.batch",
+      "inversedBy": "notifications"
+    },
+    "Date": {
+      "type": "datetime"
+    }
+  }
+}

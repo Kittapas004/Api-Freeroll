@@ -397,7 +397,7 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Cultivation_Method: Schema.Attribute.String;
-    Date_of_Planting: Schema.Attribute.Date;
+    Date_of_Planting: Schema.Attribute.DateTime;
     factory_submissions: Schema.Attribute.Relation<
       'oneToMany',
       'api::factory-submission.factory-submission'
@@ -418,6 +418,10 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::batch.batch'> &
       Schema.Attribute.Private;
+    notifications: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::notification.notification'
+    >;
     Plant_Variety: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -453,7 +457,7 @@ export interface ApiFactorySubmissionFactorySubmission
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Date: Schema.Attribute.Date;
+    Date: Schema.Attribute.DateTime;
     Date_Processed: Schema.Attribute.DateTime;
     Date_Received: Schema.Attribute.DateTime;
     Factory: Schema.Attribute.Enumeration<['Lamduan', 'MFU']>;
@@ -514,7 +518,9 @@ export interface ApiFarmFarm extends Struct.CollectionTypeSchema {
     Farm_Name: Schema.Attribute.String;
     Farm_Size: Schema.Attribute.Decimal;
     Farm_Size_Unit: Schema.Attribute.Enumeration<['Acres', 'Rai']>;
-    Farm_Status: Schema.Attribute.Enumeration<['Planted', 'End Planted']>;
+    Farm_Status: Schema.Attribute.Enumeration<
+      ['Planted', 'Fertilized', 'Harvested', 'End Planted']
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::farm.farm'> &
       Schema.Attribute.Private;
@@ -534,6 +540,7 @@ export interface ApiFertilizerRecordFertilizerRecord
   extends Struct.CollectionTypeSchema {
   collectionName: 'fertilizer_records';
   info: {
+    description: '';
     displayName: 'Fertilizer_Record';
     pluralName: 'fertilizer-records';
     singularName: 'fertilizer-record';
@@ -546,7 +553,7 @@ export interface ApiFertilizerRecordFertilizerRecord
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Date: Schema.Attribute.Date;
+    Date: Schema.Attribute.DateTime;
     Fertilizer_type: Schema.Attribute.Enumeration<['Organic', 'Conventional']>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -665,6 +672,42 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiNotificationNotification
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'notifications';
+  info: {
+    description: '';
+    displayName: 'Notification';
+    pluralName: 'notifications';
+    singularName: 'notification';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    batch: Schema.Attribute.Relation<'manyToOne', 'api::batch.batch'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Date: Schema.Attribute.DateTime;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::notification.notification'
+    > &
+      Schema.Attribute.Private;
+    Notification_status: Schema.Attribute.Enumeration<
+      ['Warning', 'Succeed', 'Failed', 'General']
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    Text: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user_documentId: Schema.Attribute.String;
   };
 }
 
@@ -1190,6 +1233,7 @@ declare module '@strapi/strapi' {
       'api::fertilizer-record.fertilizer-record': ApiFertilizerRecordFertilizerRecord;
       'api::harvest-record.harvest-record': ApiHarvestRecordHarvestRecord;
       'api::lab-submission-record.lab-submission-record': ApiLabSubmissionRecordLabSubmissionRecord;
+      'api::notification.notification': ApiNotificationNotification;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

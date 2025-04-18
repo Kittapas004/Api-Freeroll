@@ -27,7 +27,7 @@
       "type": "integer"
     },
     "Date": {
-      "type": "date"
+      "type": "datetime"
     },
     "batch": {
       "type": "relation",
@@ -91,14 +91,15 @@
       "type": "string"
     },
     "Attachments": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "Output_Essential_Oil": {
       "type": "integer"
