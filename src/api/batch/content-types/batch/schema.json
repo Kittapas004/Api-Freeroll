@@ -21,7 +21,7 @@
       "inversedBy": "batches"
     },
     "Date_of_Planting": {
-      "type": "datetime"
+      "type": "date"
     },
     "Batch_Status": {
       "type": "enumeration",
