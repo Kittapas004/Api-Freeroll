@@ -397,7 +397,7 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Cultivation_Method: Schema.Attribute.String;
-    Date_of_Planting: Schema.Attribute.DateTime;
+    Date_of_Planting: Schema.Attribute.Date;
     factory_submissions: Schema.Attribute.Relation<
       'oneToMany',
       'api::factory-submission.factory-submission'
@@ -651,7 +651,7 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
       'oneToOne',
       'api::harvest-record.harvest-record'
     >;
-    Lab_name: Schema.Attribute.String;
+    lab: Schema.Attribute.Relation<'manyToOne', 'api::lab.lab'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -672,6 +672,40 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiLabLab extends Struct.CollectionTypeSchema {
+  collectionName: 'labs';
+  info: {
+    description: '';
+    displayName: 'Lab';
+    pluralName: 'labs';
+    singularName: 'lab';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Lab_Name: Schema.Attribute.String;
+    lab_submission_records: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lab-submission-record.lab-submission-record'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::lab.lab'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_users: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1182,6 +1216,7 @@ export interface PluginUsersPermissionsUser
         minLength: 6;
       }>;
     farms: Schema.Attribute.Relation<'oneToMany', 'api::farm.farm'>;
+    lab: Schema.Attribute.Relation<'manyToOne', 'api::lab.lab'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1233,6 +1268,7 @@ declare module '@strapi/strapi' {
       'api::fertilizer-record.fertilizer-record': ApiFertilizerRecordFertilizerRecord;
       'api::harvest-record.harvest-record': ApiHarvestRecordHarvestRecord;
       'api::lab-submission-record.lab-submission-record': ApiLabSubmissionRecordLabSubmissionRecord;
+      'api::lab.lab': ApiLabLab;
       'api::notification.notification': ApiNotificationNotification;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

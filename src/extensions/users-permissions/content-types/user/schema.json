@@ -101,6 +101,12 @@
     },
     "phone": {
       "type": "string"
+    },
+    "lab": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::lab.lab",
+      "inversedBy": "users_permissions_users"
     }
   }
 }

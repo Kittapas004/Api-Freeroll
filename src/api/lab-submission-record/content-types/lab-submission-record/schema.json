@@ -14,9 +14,6 @@
     "Date": {
       "type": "datetime"
     },
-    "Lab_name": {
-      "type": "string"
-    },
     "Quality_grade": {
       "type": "enumeration",
       "enum": [
@@ -58,6 +55,12 @@
       "relation": "oneToOne",
       "target": "api::harvest-record.harvest-record",
       "inversedBy": "lab_submission_record"
+    },
+    "lab": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::lab.lab",
+      "inversedBy": "lab_submission_records"
     }
   }
 }

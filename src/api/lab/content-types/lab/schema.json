@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "labs",
+  "info": {
+    "singularName": "lab",
+    "pluralName": "labs",
+    "displayName": "Lab",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Lab_Name": {
+      "type": "string"
+    },
+    "users_permissions_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "lab"
+    },
+    "lab_submission_records": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lab-submission-record.lab-submission-record",
+      "mappedBy": "lab"
+    }
+  }
+}
