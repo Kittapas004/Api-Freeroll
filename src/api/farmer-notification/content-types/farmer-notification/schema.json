@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "farmer_notifications",
+  "info": {
+    "singularName": "farmer-notification",
+    "pluralName": "farmer-notifications",
+    "displayName": "Farmer_Notification  ",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "message": {
+      "type": "string"
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "farmer_email": {
+      "type": "string"
+    },
+    "sent_date": {
+      "type": "datetime"
+    },
+    "read_status": {
+      "type": "boolean"
+    },
+    "notification_sent": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

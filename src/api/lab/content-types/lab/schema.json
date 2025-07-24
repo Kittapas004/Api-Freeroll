@@ -25,6 +25,10 @@
       "relation": "oneToMany",
       "target": "api::lab-submission-record.lab-submission-record",
       "mappedBy": "lab"
+    },
+    "exported": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

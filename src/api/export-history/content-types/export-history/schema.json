@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "export_histories",
+  "info": {
+    "singularName": "export-history",
+    "pluralName": "export-histories",
+    "displayName": "Export_History",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "batch_ids": {
+      "type": "json"
+    },
+    "export_date": {
+      "type": "date"
+    },
+    "export_status": {
+      "type": "string"
+    },
+    "lab": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::lab.lab"
+    },
+    "exported_by": {
+      "type": "string"
+    },
+    "exported": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

@@ -37,9 +37,6 @@
     "Note": {
       "type": "text"
     },
-    "Result_type": {
-      "type": "string"
-    },
     "Curcumin_quality": {
       "type": "decimal"
     },
@@ -85,6 +82,57 @@
       "relation": "manyToOne",
       "target": "api::factory-submission.factory-submission",
       "inversedBy": "harvest_records"
+    },
+    "kamincal_sample_name": {
+      "type": "string"
+    },
+    "kamincal_plant_weight": {
+      "type": "decimal"
+    },
+    "kamincal_solvent_volume": {
+      "type": "decimal"
+    },
+    "kamincal_average_od": {
+      "type": "decimal"
+    },
+    "kamincal_concentration": {
+      "type": "decimal"
+    },
+    "kamincal_number_of_replications": {
+      "type": "integer"
+    },
+    "kamincal_first_time": {
+      "type": "decimal"
+    },
+    "kamincal_analytical_instrument": {
+      "type": "enumeration",
+      "enum": [
+        "UV-Vis",
+        "LED"
+      ]
+    },
+    "kamincal_second_time": {
+      "type": "decimal"
+    },
+    "kamincal_curcuminoid_content": {
+      "type": "enumeration",
+      "enum": [
+        "Pass",
+        "Fail"
+      ]
+    },
+    "kamincal_curcuminoid_percentage": {
+      "type": "decimal"
+    },
+    "kamincal_third_time": {
+      "type": "decimal"
+    },
+    "Result_type": {
+      "type": "enumeration",
+      "enum": [
+        "UV-Vis",
+        "LED"
+      ]
     }
   }
 }

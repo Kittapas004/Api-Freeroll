@@ -29,19 +29,9 @@
       "enum": [
         "Completed",
         "Pending",
+        "Draft",
         "Failed",
         "Waiting"
-      ]
-    },
-    "Report": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
       ]
     },
     "batch": {
@@ -61,6 +51,107 @@
       "relation": "manyToOne",
       "target": "api::lab.lab",
       "inversedBy": "lab_submission_records"
+    },
+    "curcumin_quality": {
+      "type": "decimal",
+      "min": 0,
+      "max": 100
+    },
+    "moisture_quality": {
+      "type": "decimal",
+      "min": 0,
+      "max": 100
+    },
+    "test_date": {
+      "type": "date"
+    },
+    "inspector_notes": {
+      "type": "text"
+    },
+    "result_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "Report": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "kamincal_sample_name": {
+      "type": "string"
+    },
+    "kamincal_plant_weight": {
+      "type": "decimal"
+    },
+    "kamincal_solvent_volume": {
+      "type": "decimal"
+    },
+    "kamincal_average_od": {
+      "type": "decimal"
+    },
+    "kamincal_concentration": {
+      "type": "decimal"
+    },
+    "kamincal_number_of_replications": {
+      "type": "integer"
+    },
+    "kamincal_first_time": {
+      "type": "decimal"
+    },
+    "kamincal_analytical_instrument": {
+      "type": "enumeration",
+      "enum": [
+        "NIR Spectroscopy",
+        "HPLC",
+        "UV-Vis"
+      ]
+    },
+    "kamincal_second_time": {
+      "type": "decimal"
+    },
+    "kamincal_curcuminoid_content": {
+      "type": "enumeration",
+      "enum": [
+        "Pass",
+        "Fail"
+      ]
+    },
+    "kamincal_curcuminoid_percentage": {
+      "type": "decimal"
+    },
+    "kamincal_third_time": {
+      "type": "decimal"
+    },
+    "Result_type": {
+      "type": "enumeration",
+      "enum": [
+        "NIR Spectroscopy",
+        "HPLC",
+        "UV-Vis"
+      ]
+    },
+    "exported": {
+      "type": "boolean",
+      "default": false
+    },
+    "testing_method": {
+      "type": "enumeration",
+      "enum": [
+        "NIR Spectroscopy",
+        "HPLC",
+        "UV-Vis"
+      ]
     }
   }
 }

@@ -435,6 +435,41 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiExportHistoryExportHistory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'export_histories';
+  info: {
+    description: '';
+    displayName: 'Export_History';
+    pluralName: 'export-histories';
+    singularName: 'export-history';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    batch_ids: Schema.Attribute.JSON;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    export_date: Schema.Attribute.Date;
+    exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    exported_by: Schema.Attribute.String;
+    export_status: Schema.Attribute.String;
+    lab: Schema.Attribute.Relation<'oneToOne', 'api::lab.lab'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::export-history.export-history'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFactorySubmissionFactorySubmission
   extends Struct.CollectionTypeSchema {
   collectionName: 'factory_submissions';
@@ -536,6 +571,42 @@ export interface ApiFarmFarm extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFarmerNotificationFarmerNotification
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'farmer_notifications';
+  info: {
+    description: '';
+    displayName: 'Farmer_Notification  ';
+    pluralName: 'farmer-notifications';
+    singularName: 'farmer-notification';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    batch_id: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    farmer_email: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::farmer-notification.farmer-notification'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.String;
+    notification_sent: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    publishedAt: Schema.Attribute.DateTime;
+    read_status: Schema.Attribute.Boolean;
+    sent_date: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFertilizerRecordFertilizerRecord
   extends Struct.CollectionTypeSchema {
   collectionName: 'fertilizer_records';
@@ -599,6 +670,22 @@ export interface ApiHarvestRecordHarvestRecord
     Harvest_status: Schema.Attribute.Enumeration<
       ['Completed', 'Pending', 'Failed', 'Waiting']
     >;
+    kamincal_analytical_instrument: Schema.Attribute.Enumeration<
+      ['UV-Vis', 'LED']
+    >;
+    kamincal_average_od: Schema.Attribute.Decimal;
+    kamincal_concentration: Schema.Attribute.Decimal;
+    kamincal_curcuminoid_content: Schema.Attribute.Enumeration<
+      ['Pass', 'Fail']
+    >;
+    kamincal_curcuminoid_percentage: Schema.Attribute.Decimal;
+    kamincal_first_time: Schema.Attribute.Decimal;
+    kamincal_number_of_replications: Schema.Attribute.Integer;
+    kamincal_plant_weight: Schema.Attribute.Decimal;
+    kamincal_sample_name: Schema.Attribute.String;
+    kamincal_second_time: Schema.Attribute.Decimal;
+    kamincal_solvent_volume: Schema.Attribute.Decimal;
+    kamincal_third_time: Schema.Attribute.Decimal;
     lab_submission_record: Schema.Attribute.Relation<
       'oneToOne',
       'api::lab-submission-record.lab-submission-record'
@@ -617,7 +704,7 @@ export interface ApiHarvestRecordHarvestRecord
     quality_grade: Schema.Attribute.Enumeration<
       ['Grade A', 'Grade B', 'Grade C', 'Grade D', 'Grade F']
     >;
-    Result_type: Schema.Attribute.String;
+    Result_type: Schema.Attribute.Enumeration<['UV-Vis', 'LED']>;
     Submission_status: Schema.Attribute.Enumeration<
       ['Completed', 'Pending', 'Failed', 'Waiting']
     >;
@@ -646,11 +733,37 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    curcumin_quality: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 0;
+        },
+        number
+      >;
     Date: Schema.Attribute.DateTime;
+    exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     harvest_record: Schema.Attribute.Relation<
       'oneToOne',
       'api::harvest-record.harvest-record'
     >;
+    inspector_notes: Schema.Attribute.Text;
+    kamincal_analytical_instrument: Schema.Attribute.Enumeration<
+      ['NIR Spectroscopy', 'HPLC', 'UV-Vis']
+    >;
+    kamincal_average_od: Schema.Attribute.Decimal;
+    kamincal_concentration: Schema.Attribute.Decimal;
+    kamincal_curcuminoid_content: Schema.Attribute.Enumeration<
+      ['Pass', 'Fail']
+    >;
+    kamincal_curcuminoid_percentage: Schema.Attribute.Decimal;
+    kamincal_first_time: Schema.Attribute.Decimal;
+    kamincal_number_of_replications: Schema.Attribute.Integer;
+    kamincal_plant_weight: Schema.Attribute.Decimal;
+    kamincal_sample_name: Schema.Attribute.String;
+    kamincal_second_time: Schema.Attribute.Decimal;
+    kamincal_solvent_volume: Schema.Attribute.Decimal;
+    kamincal_third_time: Schema.Attribute.Decimal;
     lab: Schema.Attribute.Relation<'manyToOne', 'api::lab.lab'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -658,16 +771,29 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
       'api::lab-submission-record.lab-submission-record'
     > &
       Schema.Attribute.Private;
+    moisture_quality: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 0;
+        },
+        number
+      >;
     publishedAt: Schema.Attribute.DateTime;
     Quality_grade: Schema.Attribute.Enumeration<
       ['Grade A', 'Grade B', 'Grade C', 'Grade D', 'Grade F']
     >;
-    Report: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
+    Report: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    result_image: Schema.Attribute.Media<'images' | 'files'>;
+    Result_type: Schema.Attribute.Enumeration<
+      ['NIR Spectroscopy', 'HPLC', 'UV-Vis']
     >;
     Submission_status: Schema.Attribute.Enumeration<
-      ['Completed', 'Pending', 'Failed', 'Waiting']
+      ['Completed', 'Pending', 'Draft', 'Failed', 'Waiting']
+    >;
+    test_date: Schema.Attribute.Date;
+    testing_method: Schema.Attribute.Enumeration<
+      ['NIR Spectroscopy', 'HPLC', 'UV-Vis']
     >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -690,6 +816,7 @@ export interface ApiLabLab extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     Lab_Name: Schema.Attribute.String;
     lab_submission_records: Schema.Attribute.Relation<
       'oneToMany',
@@ -1239,16 +1366,16 @@ export interface PluginUsersPermissionsUser
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    user_role: Schema.Attribute.Enumeration<
-      ['Quality Inspection', 'Farmer', 'Factory', 'Custumer', 'Admin']
-    > &
-      Schema.Attribute.Required;
     username: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
+    user_role: Schema.Attribute.Enumeration<
+      ['Quality Inspection', 'Farmer', 'Factory', 'Custumer', 'Admin']
+    > &
+      Schema.Attribute.Required;
   };
 }
 
@@ -1263,8 +1390,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::batch.batch': ApiBatchBatch;
+      'api::export-history.export-history': ApiExportHistoryExportHistory;
       'api::factory-submission.factory-submission': ApiFactorySubmissionFactorySubmission;
       'api::farm.farm': ApiFarmFarm;
+      'api::farmer-notification.farmer-notification': ApiFarmerNotificationFarmerNotification;
       'api::fertilizer-record.fertilizer-record': ApiFertilizerRecordFertilizerRecord;
       'api::harvest-record.harvest-record': ApiHarvestRecordHarvestRecord;
       'api::lab-submission-record.lab-submission-record': ApiLabSubmissionRecordLabSubmissionRecord;
