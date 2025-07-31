@@ -87,6 +87,12 @@
       "relation": "oneToMany",
       "target": "api::notification.notification",
       "mappedBy": "batch"
+    },
+    "quality_notification": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::quality-notification.quality-notification",
+      "inversedBy": "batches"
     }
   }
 }

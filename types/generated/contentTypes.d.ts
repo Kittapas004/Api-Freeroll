@@ -424,6 +424,10 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
     >;
     Plant_Variety: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    quality_notification: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::quality-notification.quality-notification'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -742,7 +746,12 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
         number
       >;
     Date: Schema.Attribute.DateTime;
+    export_date: Schema.Attribute.DateTime;
     exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    export_status: Schema.Attribute.Enumeration<
+      ['Pending Export', 'Exported', 'Export Failed']
+    > &
+      Schema.Attribute.DefaultTo<'Pending Export'>;
     harvest_record: Schema.Attribute.Relation<
       'oneToOne',
       'api::harvest-record.harvest-record'
@@ -789,7 +798,7 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
       ['NIR Spectroscopy', 'HPLC', 'UV-Vis']
     >;
     Submission_status: Schema.Attribute.Enumeration<
-      ['Completed', 'Pending', 'Draft', 'Failed', 'Waiting']
+      ['Completed', 'Pending', 'Draft', 'Failed', 'Waiting', 'Ready for Export']
     >;
     test_date: Schema.Attribute.Date;
     testing_method: Schema.Attribute.Enumeration<
@@ -865,6 +874,49 @@ export interface ApiNotificationNotification
     >;
     publishedAt: Schema.Attribute.DateTime;
     Text: Schema.Attribute.Text;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user_documentId: Schema.Attribute.String;
+  };
+}
+
+export interface ApiQualityNotificationQualityNotification
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'quality_notifications';
+  info: {
+    description: '';
+    displayName: 'Quality_Notification';
+    pluralName: 'quality-notifications';
+    singularName: 'quality-notification';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    batches: Schema.Attribute.Relation<'oneToMany', 'api::batch.batch'>;
+    batch_id: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Date: Schema.Attribute.DateTime;
+    lab_submission_records: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lab-submission-record.lab-submission-record'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::quality-notification.quality-notification'
+    > &
+      Schema.Attribute.Private;
+    Notification_status: Schema.Attribute.Enumeration<['unread', 'read']>;
+    notification_type: Schema.Attribute.Enumeration<
+      ['pass', 'fail', 'pending', 'alert']
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    Text: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1399,6 +1451,7 @@ declare module '@strapi/strapi' {
       'api::lab-submission-record.lab-submission-record': ApiLabSubmissionRecordLabSubmissionRecord;
       'api::lab.lab': ApiLabLab;
       'api::notification.notification': ApiNotificationNotification;
+      'api::quality-notification.quality-notification': ApiQualityNotificationQualityNotification;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

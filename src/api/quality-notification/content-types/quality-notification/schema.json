@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "quality_notifications",
+  "info": {
+    "singularName": "quality-notification",
+    "pluralName": "quality-notifications",
+    "displayName": "Quality_Notification",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Text": {
+      "type": "text"
+    },
+    "user_documentId": {
+      "type": "string"
+    },
+    "Notification_status": {
+      "type": "enumeration",
+      "enum": [
+        "unread",
+        "read"
+      ]
+    },
+    "notification_type": {
+      "type": "enumeration",
+      "enum": [
+        "pass",
+        "fail",
+        "pending",
+        "alert"
+      ]
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "Date": {
+      "type": "datetime"
+    },
+    "batches": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::batch.batch",
+      "mappedBy": "quality_notification"
+    },
+    "lab_submission_records": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lab-submission-record.lab-submission-record"
+    }
+  }
+}

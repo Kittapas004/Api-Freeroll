@@ -31,7 +31,8 @@
         "Pending",
         "Draft",
         "Failed",
-        "Waiting"
+        "Waiting",
+        "Ready for Export"
       ]
     },
     "batch": {
@@ -141,10 +142,27 @@
         "UV-Vis"
       ]
     },
-    "exported": {
-      "type": "boolean",
-      "default": false
-    },
+    
+  "exported": {
+    "type": "boolean",
+    "default": false,
+    "required": false
+  },
+  "export_date": {
+    "type": "datetime",
+    "required": false
+  },
+  "export_status": {
+    "type": "enumeration",
+    "enum": [
+      "Pending Export",
+      "Exported", 
+      "Export Failed"
+    ],
+    "default": "Pending Export",
+    "required": false
+  },
+    
     "testing_method": {
       "type": "enumeration",
       "enum": [
