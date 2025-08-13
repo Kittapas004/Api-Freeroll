@@ -113,7 +113,7 @@
     "kamincal_analytical_instrument": {
       "type": "enumeration",
       "enum": [
-        "NIR Spectroscopy",
+        "NIR",
         "HPLC",
         "UV-Vis"
       ]
@@ -142,27 +142,25 @@
         "UV-Vis"
       ]
     },
-    
-  "exported": {
-    "type": "boolean",
-    "default": false,
-    "required": false
-  },
-  "export_date": {
-    "type": "datetime",
-    "required": false
-  },
-  "export_status": {
-    "type": "enumeration",
-    "enum": [
-      "Pending Export",
-      "Exported", 
-      "Export Failed"
-    ],
-    "default": "Pending Export",
-    "required": false
-  },
-    
+    "exported": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "export_date": {
+      "type": "datetime",
+      "required": false
+    },
+    "export_status": {
+      "type": "enumeration",
+      "enum": [
+        "Pending Export",
+        "Exported",
+        "Export Failed"
+      ],
+      "default": "Pending Export",
+      "required": false
+    },
     "testing_method": {
       "type": "enumeration",
       "enum": [
@@ -170,6 +168,85 @@
         "HPLC",
         "UV-Vis"
       ]
+    },
+    "hplc_report_code": {
+      "type": "string"
+    },
+    "hplc_sample_code": {
+      "type": "string"
+    },
+    "hplc_sample_name": {
+      "type": "string"
+    },
+    "hplc_scientific_name": {
+      "type": "string"
+    },
+    "hplc_bdmc_result": {
+      "type": "string"
+    },
+    "hplc_dmc_result": {
+      "type": "string"
+    },
+    "hplc_cur_result": {
+      "type": "string"
+    },
+    "hplc_total_curcuminoids": {
+      "type": "string"
+    },
+    "hplc_test_date": {
+      "type": "date"
+    },
+    "hplc_quality_assessment": {
+      "type": "enumeration",
+      "enum": [
+        "Pass",
+        "Fail"
+      ]
+    },
+    "hplc_testing_no": {
+      "type": "string"
+    },
+    "hplc_temperature": {
+      "type": "string"
+    },
+    "hplc_sample_preparation": {
+      "type": "string"
+    },
+    "hplc_sample_condition": {
+      "type": "string"
+    },
+    "hplc_sample_amount": {
+      "type": "string"
+    },
+    "hplc_quantity": {
+      "type": "string"
+    },
+    "hplc_moisture_quantity": {
+      "type": "string"
+    },
+    "hplc_reviewer_name": {
+      "type": "string"
+    },
+    "hplc_method_reference": {
+      "type": "string"
+    },
+    "hplc_method_details": {
+      "type": "string"
+    },
+    "hplc_laboratory_phone": {
+      "type": "string"
+    },
+    "hplc_laboratory_address": {
+      "type": "string"
+    },
+    "hplc_laboratory": {
+      "type": "string"
+    },
+    "hplc_certificate_number": {
+      "type": "string"
+    },
+    "hplc_analyst_name": {
+      "type": "string"
     }
   }
 }

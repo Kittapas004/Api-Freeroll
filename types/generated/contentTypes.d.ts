@@ -756,9 +756,34 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
       'oneToOne',
       'api::harvest-record.harvest-record'
     >;
+    hplc_analyst_name: Schema.Attribute.String;
+    hplc_bdmc_result: Schema.Attribute.String;
+    hplc_certificate_number: Schema.Attribute.String;
+    hplc_cur_result: Schema.Attribute.String;
+    hplc_dmc_result: Schema.Attribute.String;
+    hplc_laboratory: Schema.Attribute.String;
+    hplc_laboratory_address: Schema.Attribute.String;
+    hplc_laboratory_phone: Schema.Attribute.String;
+    hplc_method_details: Schema.Attribute.String;
+    hplc_method_reference: Schema.Attribute.String;
+    hplc_moisture_quantity: Schema.Attribute.String;
+    hplc_quality_assessment: Schema.Attribute.Enumeration<['Pass', 'Fail']>;
+    hplc_quantity: Schema.Attribute.String;
+    hplc_report_code: Schema.Attribute.String;
+    hplc_reviewer_name: Schema.Attribute.String;
+    hplc_sample_amount: Schema.Attribute.String;
+    hplc_sample_code: Schema.Attribute.String;
+    hplc_sample_condition: Schema.Attribute.String;
+    hplc_sample_name: Schema.Attribute.String;
+    hplc_sample_preparation: Schema.Attribute.String;
+    hplc_scientific_name: Schema.Attribute.String;
+    hplc_temperature: Schema.Attribute.String;
+    hplc_test_date: Schema.Attribute.Date;
+    hplc_testing_no: Schema.Attribute.String;
+    hplc_total_curcuminoids: Schema.Attribute.String;
     inspector_notes: Schema.Attribute.Text;
     kamincal_analytical_instrument: Schema.Attribute.Enumeration<
-      ['NIR Spectroscopy', 'HPLC', 'UV-Vis']
+      ['NIR', 'HPLC', 'UV-Vis']
     >;
     kamincal_average_od: Schema.Attribute.Decimal;
     kamincal_concentration: Schema.Attribute.Decimal;
