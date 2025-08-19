@@ -31,6 +31,24 @@
     "exported": {
       "type": "boolean",
       "default": false
+    },
+    "batch_name": {
+      "type": "string"
+    },
+    "test_type": {
+      "type": "string"
+    },
+    "quality_grade": {
+      "type": "string"
+    },
+    "yield_unit": {
+      "type": "string"
+    },
+    "farm_name": {
+      "type": "string"
+    },
+    "yield": {
+      "type": "integer"
     }
   }
 }
