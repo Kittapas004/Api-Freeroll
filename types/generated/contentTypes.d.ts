@@ -819,6 +819,8 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
         },
         number
       >;
+    notification_status: Schema.Attribute.Enumeration<['read', 'unread']> &
+      Schema.Attribute.DefaultTo<'unread'>;
     publishedAt: Schema.Attribute.DateTime;
     Quality_grade: Schema.Attribute.Enumeration<
       ['Grade A', 'Grade B', 'Grade C', 'Grade D', 'Grade F']

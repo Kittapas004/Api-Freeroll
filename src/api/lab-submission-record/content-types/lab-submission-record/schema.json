@@ -247,6 +247,14 @@
     },
     "hplc_analyst_name": {
       "type": "string"
+    },
+    "notification_status": {
+      "type": "enumeration",
+      "enum": [
+        "read",
+        "unread"
+      ],
+      "default": "unread"
     }
   }
 }
