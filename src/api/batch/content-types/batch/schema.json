@@ -93,6 +93,27 @@
       "relation": "manyToOne",
       "target": "api::quality-notification.quality-notification",
       "inversedBy": "batches"
+    },
+    "Soil_pH": {
+      "type": "decimal"
+    },
+    "Soil_Quality": {
+      "type": "string"
+    },
+    "Water_Source": {
+      "type": "string"
+    },
+    "Labor_Cost": {
+      "type": "decimal"
+    },
+    "Material_Cost": {
+      "type": "decimal"
+    },
+    "Other_Costs": {
+      "type": "decimal"
+    },
+    "Total_Planting_Cost": {
+      "type": "decimal"
     }
   }
 }

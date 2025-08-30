@@ -133,6 +133,21 @@
         "UV-Vis",
         "LED"
       ]
+    },
+    "labor_cost": {
+      "type": "decimal",
+      "min": 0,
+      "default": 0
+    },
+    "equipment_cost": {
+      "type": "decimal",
+      "min": 0,
+      "default": 0
+    },
+    "total_harvest_cost": {
+      "type": "decimal",
+      "min": 0,
+      "default": 0
     }
   }
 }

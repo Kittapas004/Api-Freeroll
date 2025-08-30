@@ -103,6 +103,12 @@
     },
     "Output_Essential_Oil": {
       "type": "integer"
+    },
+    "factory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::factory.factory",
+      "inversedBy": "factory_submissions"
     }
   }
 }

@@ -1,0 +1,69 @@
+{
+  "kind": "collectionType",
+  "collectionName": "factories",
+  "info": {
+    "singularName": "factory",
+    "pluralName": "factories",
+    "displayName": "Factory",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Factory_Name": {
+      "type": "string"
+    },
+    "users_permissions_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "factory"
+    },
+    "factory_submissions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::factory-submission.factory-submission",
+      "mappedBy": "factory"
+    },
+    "exported": {
+      "type": "boolean",
+      "default": false
+    },
+    "Factory_address": {
+    "type": "text",
+    "required": false
+  },
+  "Contact_person": {
+    "type": "string",
+    "required": false
+  },
+  "Phone": {
+    "type": "string",
+    "required": false
+  },
+  "Email": {
+    "type": "email",
+    "required": false
+  },
+  "Factory_type": {
+    "type": "enumeration",
+    "enum": ["Processing", "Packaging", "Extraction", "Full_Service"],
+    "required": true
+  },
+  "Capacity_per_day": {
+    "type": "decimal",
+    "required": false
+  },
+  "Specialization": {
+    "type": "enumeration",
+    "enum": ["Capsules", "Essential_Oil", "Powder", "Extract", "All"],
+    "required": true
+  },
+  "Status": {
+    "type": "enumeration",
+    "enum": ["Active", "Inactive", "Maintenance"],
+    "default": "Active"
+  }
+  }
+}
