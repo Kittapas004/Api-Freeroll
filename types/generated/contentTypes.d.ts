@@ -487,6 +487,57 @@ export interface ApiExportHistoryExportHistory
   };
 }
 
+export interface ApiFactoryProcessingFactoryProcessing
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'factory_processings';
+  info: {
+    displayName: 'Factory_Processing';
+    pluralName: 'factory-processings';
+    singularName: 'factory-processing';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Attachments: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    Batch_Id: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Date_Processed: Schema.Attribute.DateTime;
+    Date_Received: Schema.Attribute.DateTime;
+    factory: Schema.Attribute.Relation<'manyToOne', 'api::factory.factory'>;
+    factory_submission: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::factory-submission.factory-submission'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-processing.factory-processing'
+    > &
+      Schema.Attribute.Private;
+    Note: Schema.Attribute.String;
+    Output_Capsules: Schema.Attribute.Decimal;
+    Output_Essential_Oil: Schema.Attribute.Decimal;
+    Processed_By: Schema.Attribute.String;
+    Processing_Status: Schema.Attribute.Enumeration<
+      ['Received', 'Processing', 'Completed']
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    Turmeric_Utilization_Remaining: Schema.Attribute.Decimal;
+    Turmeric_Utilization_Used: Schema.Attribute.Decimal;
+    Turmeric_Utilization_Waste: Schema.Attribute.Decimal;
+    Unit: Schema.Attribute.Enumeration<['kg', 'g', 'ton']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFactorySubmissionFactorySubmission
   extends Struct.CollectionTypeSchema {
   collectionName: 'factory_submissions';
@@ -500,20 +551,17 @@ export interface ApiFactorySubmissionFactorySubmission
     draftAndPublish: true;
   };
   attributes: {
-    Attachments: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
     batch: Schema.Attribute.Relation<'manyToOne', 'api::batch.batch'>;
     Batch_id: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Date: Schema.Attribute.DateTime;
-    Date_Processed: Schema.Attribute.DateTime;
-    Date_Received: Schema.Attribute.DateTime;
     factory: Schema.Attribute.Relation<'manyToOne', 'api::factory.factory'>;
-    Factory: Schema.Attribute.Enumeration<['Lamduan', 'MFU']>;
+    factory_processings: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-processing.factory-processing'
+    >;
     Farm_Name: Schema.Attribute.String;
     harvest_records: Schema.Attribute.Relation<
       'oneToMany',
@@ -525,19 +573,12 @@ export interface ApiFactorySubmissionFactorySubmission
       'api::factory-submission.factory-submission'
     > &
       Schema.Attribute.Private;
-    Note: Schema.Attribute.Text;
-    Output_Capsules: Schema.Attribute.Integer;
-    Output_Essential_Oil: Schema.Attribute.Integer;
-    Processed_By: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     Quality_Grade: Schema.Attribute.String;
     Submission_status: Schema.Attribute.Enumeration<
       ['Completed', 'Waiting', 'Pending']
     >;
     Test_Type: Schema.Attribute.String;
-    Turmeric_Utilization_Remaining: Schema.Attribute.Decimal;
-    Turmeric_Utilization_Used: Schema.Attribute.Decimal;
-    Turmeric_Utilization_Waste: Schema.Attribute.Decimal;
     Unit: Schema.Attribute.Enumeration<['kg', 'g']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -568,6 +609,10 @@ export interface ApiFactoryFactory extends Struct.CollectionTypeSchema {
     exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     Factory_address: Schema.Attribute.Text;
     Factory_Name: Schema.Attribute.String;
+    factory_processings: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-processing.factory-processing'
+    >;
     factory_submissions: Schema.Attribute.Relation<
       'oneToMany',
       'api::factory-submission.factory-submission'
@@ -1588,6 +1633,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::batch.batch': ApiBatchBatch;
       'api::export-history.export-history': ApiExportHistoryExportHistory;
+      'api::factory-processing.factory-processing': ApiFactoryProcessingFactoryProcessing;
       'api::factory-submission.factory-submission': ApiFactorySubmissionFactorySubmission;
       'api::factory.factory': ApiFactoryFactory;
       'api::farm.farm': ApiFarmFarm;

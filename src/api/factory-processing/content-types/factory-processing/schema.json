@@ -1,0 +1,82 @@
+{
+  "kind": "collectionType",
+  "collectionName": "factory_processings",
+  "info": {
+    "singularName": "factory-processing",
+    "pluralName": "factory-processings",
+    "displayName": "Factory_Processing"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Batch_Id": {
+      "type": "string"
+    },
+    "factory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::factory.factory",
+      "inversedBy": "factory_processings"
+    },
+    "Date_Received": {
+      "type": "datetime"
+    },
+    "Date_Processed": {
+      "type": "datetime"
+    },
+    "Processed_By": {
+      "type": "string"
+    },
+    "Unit": {
+      "type": "enumeration",
+      "enum": [
+        "kg",
+        "g",
+        "ton"
+      ]
+    },
+    "Turmeric_Utilization_Used": {
+      "type": "decimal"
+    },
+    "Turmeric_Utilization_Remaining": {
+      "type": "decimal"
+    },
+    "Turmeric_Utilization_Waste": {
+      "type": "decimal"
+    },
+    "Note": {
+      "type": "string"
+    },
+    "Output_Capsules": {
+      "type": "decimal"
+    },
+    "Output_Essential_Oil": {
+      "type": "decimal"
+    },
+    "Processing_Status": {
+      "type": "enumeration",
+      "enum": [
+        "Received",
+        "Processing",
+        "Completed"
+      ]
+    },
+    "Attachments": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "factory_submission": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::factory-submission.factory-submission",
+      "inversedBy": "factory_processings"
+    }
+  }
+}
