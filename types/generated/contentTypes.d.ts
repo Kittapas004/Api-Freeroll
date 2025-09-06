@@ -491,6 +491,7 @@ export interface ApiFactoryProcessingFactoryProcessing
   extends Struct.CollectionTypeSchema {
   collectionName: 'factory_processings';
   info: {
+    description: '';
     displayName: 'Factory_Processing';
     pluralName: 'factory-processings';
     singularName: 'factory-processing';
@@ -499,42 +500,89 @@ export interface ApiFactoryProcessingFactoryProcessing
     draftAndPublish: true;
   };
   attributes: {
+    arsenic_ppm: Schema.Attribute.Decimal;
     Attachments: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
     Batch_Id: Schema.Attribute.String;
+    batch_lot_number: Schema.Attribute.String;
+    cadmium_ppm: Schema.Attribute.Decimal;
+    certification_status: Schema.Attribute.Enumeration<
+      ['Pass', 'Fail', 'Pending']
+    >;
+    compliance_notes: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    curcuminoid_content: Schema.Attribute.Decimal;
     Date_Processed: Schema.Attribute.DateTime;
     Date_Received: Schema.Attribute.DateTime;
+    duration: Schema.Attribute.Decimal;
+    e_coli: Schema.Attribute.Enumeration<['Not Detected', 'Detected']>;
+    equipment_used: Schema.Attribute.String;
     factory: Schema.Attribute.Relation<'manyToOne', 'api::factory.factory'>;
     factory_submission: Schema.Attribute.Relation<
       'manyToOne',
       'api::factory-submission.factory-submission'
     >;
+    final_product_type: Schema.Attribute.Enumeration<
+      ['Powder', 'Extract', 'Capsule', 'Tea Bag']
+    >;
+    incoming_weight: Schema.Attribute.Decimal;
+    inspection_notes: Schema.Attribute.Text;
+    lead_ppm: Schema.Attribute.Decimal;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::factory-processing.factory-processing'
     > &
       Schema.Attribute.Private;
-    Note: Schema.Attribute.String;
-    Output_Capsules: Schema.Attribute.Decimal;
-    Output_Essential_Oil: Schema.Attribute.Decimal;
+    mercury_ppm: Schema.Attribute.Decimal;
+    moisture: Schema.Attribute.Decimal;
+    operator_processor: Schema.Attribute.String;
+    output_quantity: Schema.Attribute.Decimal;
+    pesticide_residues: Schema.Attribute.Text;
     Processed_By: Schema.Attribute.String;
+    processing_date_custom: Schema.Attribute.Date;
+    processing_method: Schema.Attribute.Enumeration<
+      ['Washing', 'Slicing', 'Drying', 'Grinding', 'Sieving', 'Extraction']
+    >;
     Processing_Status: Schema.Attribute.Enumeration<
       ['Received', 'Processing', 'Completed']
     >;
+    product_grade: Schema.Attribute.Enumeration<
+      [
+        'Herbal Grade (5%)',
+        'Herbal Grade (6%)',
+        'Herbal Grade (7%)',
+        'Herbal Grade (8%)',
+        'Herbal Grade (9%)',
+        'Premium > 9',
+      ]
+    >;
     publishedAt: Schema.Attribute.DateTime;
-    Turmeric_Utilization_Remaining: Schema.Attribute.Decimal;
-    Turmeric_Utilization_Used: Schema.Attribute.Decimal;
-    Turmeric_Utilization_Waste: Schema.Attribute.Decimal;
+    raw_material_source: Schema.Attribute.String;
+    raw_material_type: Schema.Attribute.Enumeration<
+      ['Fresh Rhizome', 'Dried Slice', 'Powder']
+    >;
+    remaining_stock: Schema.Attribute.Decimal;
+    salmonella: Schema.Attribute.Enumeration<['Not Detected', 'Detected']>;
+    standard_criteria: Schema.Attribute.Enumeration<
+      ['GAP', 'THP', 'GMP', 'Organic']
+    >;
+    target_market: Schema.Attribute.Enumeration<
+      ['Food', 'Supplement', 'Cosmetic', 'Export']
+    >;
+    temperature: Schema.Attribute.Decimal;
+    total_plate_count: Schema.Attribute.Decimal;
     Unit: Schema.Attribute.Enumeration<['kg', 'g', 'ton']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user_documentId: Schema.Attribute.String;
+    waste_quantity: Schema.Attribute.Decimal;
+    yeast_mold: Schema.Attribute.Decimal;
   };
 }
 
@@ -674,9 +722,11 @@ export interface ApiFarmFarm extends Struct.CollectionTypeSchema {
     Farm_Status: Schema.Attribute.Enumeration<
       ['Planted', 'Fertilized', 'Harvested', 'End Planted']
     >;
+    Latitude: Schema.Attribute.Float;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::farm.farm'> &
       Schema.Attribute.Private;
+    Longitude: Schema.Attribute.Float;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

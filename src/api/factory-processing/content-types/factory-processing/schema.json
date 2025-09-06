@@ -4,7 +4,8 @@
   "info": {
     "singularName": "factory-processing",
     "pluralName": "factory-processings",
-    "displayName": "Factory_Processing"
+    "displayName": "Factory_Processing",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -36,24 +37,6 @@
         "ton"
       ]
     },
-    "Turmeric_Utilization_Used": {
-      "type": "decimal"
-    },
-    "Turmeric_Utilization_Remaining": {
-      "type": "decimal"
-    },
-    "Turmeric_Utilization_Waste": {
-      "type": "decimal"
-    },
-    "Note": {
-      "type": "string"
-    },
-    "Output_Capsules": {
-      "type": "decimal"
-    },
-    "Output_Essential_Oil": {
-      "type": "decimal"
-    },
     "Processing_Status": {
       "type": "enumeration",
       "enum": [
@@ -63,20 +46,169 @@
       ]
     },
     "Attachments": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "factory_submission": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::factory-submission.factory-submission",
       "inversedBy": "factory_processings"
+    },
+    "raw_material_type": {
+      "type": "enumeration",
+      "enum": [
+        "Fresh Rhizome",
+        "Dried Slice",
+        "Powder"
+      ]
+    },
+    "raw_material_source": {
+      "type": "string"
+    },
+    "batch_lot_number": {
+      "type": "string"
+    },
+    "incoming_weight": {
+      "type": "decimal"
+    },
+    "moisture": {
+      "type": "decimal"
+    },
+    "curcuminoid_content": {
+      "type": "decimal"
+    },
+    "lead_ppm": {
+      "type": "decimal"
+    },
+    "cadmium_ppm": {
+      "type": "decimal"
+    },
+    "arsenic_ppm": {
+      "type": "decimal"
+    },
+    "mercury_ppm": {
+      "type": "decimal"
+    },
+    "total_plate_count": {
+      "type": "decimal"
+    },
+    "yeast_mold": {
+      "type": "decimal"
+    },
+    "e_coli": {
+      "type": "enumeration",
+      "enum": [
+        "Not Detected",
+        "Detected"
+      ]
+    },
+    "salmonella": {
+      "type": "enumeration",
+      "enum": [
+        "Not Detected",
+        "Detected"
+      ]
+    },
+    "inspection_notes": {
+      "type": "text"
+    },
+    "pesticide_residues": {
+      "type": "text"
+    },
+    "processing_method": {
+      "type": "enumeration",
+      "enum": [
+        "Washing",
+        "Slicing",
+        "Drying",
+        "Grinding",
+        "Sieving",
+        "Extraction"
+      ]
+    },
+    "processing_date_custom": {
+      "type": "date"
+    },
+    "duration": {
+      "type": "decimal"
+    },
+    "temperature": {
+      "type": "decimal"
+    },
+    "equipment_used": {
+      "type": "string"
+    },
+    "final_product_type": {
+      "type": "enumeration",
+      "enum": [
+        "Powder",
+        "Extract",
+        "Capsule",
+        "Tea Bag"
+      ]
+    },
+    "output_quantity": {
+      "type": "decimal"
+    },
+    "remaining_stock": {
+      "type": "decimal"
+    },
+    "certification_status": {
+      "type": "enumeration",
+      "enum": [
+        "Pass",
+        "Fail",
+        "Pending"
+      ]
+    },
+    "compliance_notes": {
+      "type": "text"
+    },
+    "product_grade": {
+      "type": "enumeration",
+      "enum": [
+        "Herbal Grade (5%)",
+        "Herbal Grade (6%)",
+        "Herbal Grade (7%)",
+        "Herbal Grade (8%)",
+        "Herbal Grade (9%)",
+        "Premium > 9"
+      ]
+    },
+    "target_market": {
+      "type": "enumeration",
+      "enum": [
+        "Food",
+        "Supplement",
+        "Cosmetic",
+        "Export"
+      ]
+    },
+    "standard_criteria": {
+      "type": "enumeration",
+      "enum": [
+        "GAP",
+        "THP",
+        "GMP",
+        "Organic"
+      ]
+    },
+    "user_documentId": {
+      "type": "string"
+    },
+    "waste_quantity": {
+      "type": "decimal"
+    },
+    "operator_processor": {
+      "type": "string"
     }
   }
 }
