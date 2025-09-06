@@ -49,6 +49,21 @@
       "relation": "manyToOne",
       "target": "api::batch.batch",
       "inversedBy": "fertilizer_records"
+    },
+    "Fertilizer_Cost": {
+      "type": "decimal",
+      "min": 0,
+      "default": 0
+    },
+    "Application_Labor_Cost": {
+      "type": "decimal",
+      "min": 0,
+      "default": 0
+    },
+    "Total_Fertilizer_Cost": {
+      "type": "decimal",
+      "min": 0,
+      "default": 0
     }
   }
 }

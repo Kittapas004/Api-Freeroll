@@ -107,6 +107,12 @@
       "relation": "manyToOne",
       "target": "api::lab.lab",
       "inversedBy": "users_permissions_users"
+    },
+    "factory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::factory.factory",
+      "inversedBy": "users_permissions_users"
     }
   }
 }

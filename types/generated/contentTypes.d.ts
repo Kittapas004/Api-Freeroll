@@ -411,6 +411,7 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::harvest-record.harvest-record'
     >;
+    Labor_Cost: Schema.Attribute.Decimal;
     lab_submission_records: Schema.Attribute.Relation<
       'oneToMany',
       'api::lab-submission-record.lab-submission-record'
@@ -418,16 +419,21 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::batch.batch'> &
       Schema.Attribute.Private;
+    Material_Cost: Schema.Attribute.Decimal;
     notifications: Schema.Attribute.Relation<
       'oneToMany',
       'api::notification.notification'
     >;
+    Other_Costs: Schema.Attribute.Decimal;
     Plant_Variety: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     quality_notification: Schema.Attribute.Relation<
       'manyToOne',
       'api::quality-notification.quality-notification'
     >;
+    Soil_pH: Schema.Attribute.Decimal;
+    Soil_Quality: Schema.Attribute.String;
+    Total_Planting_Cost: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -436,6 +442,7 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
       'plugin::users-permissions.user'
     >;
     user_documentId: Schema.Attribute.String;
+    Water_Source: Schema.Attribute.String;
   };
 }
 
@@ -480,6 +487,57 @@ export interface ApiExportHistoryExportHistory
   };
 }
 
+export interface ApiFactoryProcessingFactoryProcessing
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'factory_processings';
+  info: {
+    displayName: 'Factory_Processing';
+    pluralName: 'factory-processings';
+    singularName: 'factory-processing';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Attachments: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    Batch_Id: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Date_Processed: Schema.Attribute.DateTime;
+    Date_Received: Schema.Attribute.DateTime;
+    factory: Schema.Attribute.Relation<'manyToOne', 'api::factory.factory'>;
+    factory_submission: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::factory-submission.factory-submission'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-processing.factory-processing'
+    > &
+      Schema.Attribute.Private;
+    Note: Schema.Attribute.String;
+    Output_Capsules: Schema.Attribute.Decimal;
+    Output_Essential_Oil: Schema.Attribute.Decimal;
+    Processed_By: Schema.Attribute.String;
+    Processing_Status: Schema.Attribute.Enumeration<
+      ['Received', 'Processing', 'Completed']
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    Turmeric_Utilization_Remaining: Schema.Attribute.Decimal;
+    Turmeric_Utilization_Used: Schema.Attribute.Decimal;
+    Turmeric_Utilization_Waste: Schema.Attribute.Decimal;
+    Unit: Schema.Attribute.Enumeration<['kg', 'g', 'ton']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFactorySubmissionFactorySubmission
   extends Struct.CollectionTypeSchema {
   collectionName: 'factory_submissions';
@@ -493,19 +551,17 @@ export interface ApiFactorySubmissionFactorySubmission
     draftAndPublish: true;
   };
   attributes: {
-    Attachments: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
     batch: Schema.Attribute.Relation<'manyToOne', 'api::batch.batch'>;
     Batch_id: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Date: Schema.Attribute.DateTime;
-    Date_Processed: Schema.Attribute.DateTime;
-    Date_Received: Schema.Attribute.DateTime;
-    Factory: Schema.Attribute.Enumeration<['Lamduan', 'MFU']>;
+    factory: Schema.Attribute.Relation<'manyToOne', 'api::factory.factory'>;
+    factory_processings: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-processing.factory-processing'
+    >;
     Farm_Name: Schema.Attribute.String;
     harvest_records: Schema.Attribute.Relation<
       'oneToMany',
@@ -517,25 +573,77 @@ export interface ApiFactorySubmissionFactorySubmission
       'api::factory-submission.factory-submission'
     > &
       Schema.Attribute.Private;
-    Note: Schema.Attribute.Text;
-    Output_Capsules: Schema.Attribute.Integer;
-    Output_Essential_Oil: Schema.Attribute.Integer;
-    Processed_By: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     Quality_Grade: Schema.Attribute.String;
     Submission_status: Schema.Attribute.Enumeration<
       ['Completed', 'Waiting', 'Pending']
     >;
     Test_Type: Schema.Attribute.String;
-    Turmeric_Utilization_Remaining: Schema.Attribute.Decimal;
-    Turmeric_Utilization_Used: Schema.Attribute.Decimal;
-    Turmeric_Utilization_Waste: Schema.Attribute.Decimal;
     Unit: Schema.Attribute.Enumeration<['kg', 'g']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     user_documentId: Schema.Attribute.String;
     Yield: Schema.Attribute.Integer;
+  };
+}
+
+export interface ApiFactoryFactory extends Struct.CollectionTypeSchema {
+  collectionName: 'factories';
+  info: {
+    description: '';
+    displayName: 'Factory';
+    pluralName: 'factories';
+    singularName: 'factory';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Capacity_per_day: Schema.Attribute.Decimal;
+    Contact_person: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Email: Schema.Attribute.Email;
+    exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    Factory_address: Schema.Attribute.Text;
+    Factory_Name: Schema.Attribute.String;
+    factory_processings: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-processing.factory-processing'
+    >;
+    factory_submissions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-submission.factory-submission'
+    >;
+    Factory_type: Schema.Attribute.Enumeration<
+      ['Processing', 'Packaging', 'Extraction', 'Full_Service']
+    > &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory.factory'
+    > &
+      Schema.Attribute.Private;
+    Phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    Specialization: Schema.Attribute.Enumeration<
+      ['Capsules', 'Essential_Oil', 'Powder', 'Extract', 'All']
+    > &
+      Schema.Attribute.Required;
+    Status: Schema.Attribute.Enumeration<
+      ['Active', 'Inactive', 'Maintenance']
+    > &
+      Schema.Attribute.DefaultTo<'Active'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_users: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -630,11 +738,27 @@ export interface ApiFertilizerRecordFertilizerRecord
     draftAndPublish: true;
   };
   attributes: {
+    Application_Labor_Cost: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
     batch: Schema.Attribute.Relation<'manyToOne', 'api::batch.batch'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Date: Schema.Attribute.DateTime;
+    Fertilizer_Cost: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
     Fertilizer_type: Schema.Attribute.Enumeration<['Organic', 'Conventional']>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -648,6 +772,14 @@ export interface ApiFertilizerRecordFertilizerRecord
     Quantity_applied: Schema.Attribute.Decimal;
     Quantity_applied_unit: Schema.Attribute.Enumeration<['kg', 'g']>;
     Size: Schema.Attribute.Decimal;
+    Total_Fertilizer_Cost: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -673,6 +805,14 @@ export interface ApiHarvestRecordHarvestRecord
       Schema.Attribute.Private;
     Curcumin_quality: Schema.Attribute.Decimal;
     Date: Schema.Attribute.DateTime;
+    equipment_cost: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
     factory_submission: Schema.Attribute.Relation<
       'manyToOne',
       'api::factory-submission.factory-submission'
@@ -696,6 +836,14 @@ export interface ApiHarvestRecordHarvestRecord
     kamincal_second_time: Schema.Attribute.Decimal;
     kamincal_solvent_volume: Schema.Attribute.Decimal;
     kamincal_third_time: Schema.Attribute.Decimal;
+    labor_cost: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
     lab_submission_record: Schema.Attribute.Relation<
       'oneToOne',
       'api::lab-submission-record.lab-submission-record'
@@ -718,6 +866,14 @@ export interface ApiHarvestRecordHarvestRecord
     Submission_status: Schema.Attribute.Enumeration<
       ['Completed', 'Pending', 'Failed', 'Waiting']
     >;
+    total_harvest_cost: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1427,6 +1583,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    factory: Schema.Attribute.Relation<'manyToOne', 'api::factory.factory'>;
     farms: Schema.Attribute.Relation<'oneToMany', 'api::farm.farm'>;
     lab: Schema.Attribute.Relation<'manyToOne', 'api::lab.lab'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -1476,7 +1633,9 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::batch.batch': ApiBatchBatch;
       'api::export-history.export-history': ApiExportHistoryExportHistory;
+      'api::factory-processing.factory-processing': ApiFactoryProcessingFactoryProcessing;
       'api::factory-submission.factory-submission': ApiFactorySubmissionFactorySubmission;
+      'api::factory.factory': ApiFactoryFactory;
       'api::farm.farm': ApiFarmFarm;
       'api::farmer-notification.farmer-notification': ApiFarmerNotificationFarmerNotification;
       'api::fertilizer-record.fertilizer-record': ApiFertilizerRecordFertilizerRecord;
