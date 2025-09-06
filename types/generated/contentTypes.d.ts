@@ -458,9 +458,9 @@ export interface ApiExportHistoryExportHistory
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     export_date: Schema.Attribute.Date;
-    export_status: Schema.Attribute.String;
     exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     exported_by: Schema.Attribute.String;
+    export_status: Schema.Attribute.String;
     farm_name: Schema.Attribute.String;
     lab: Schema.Attribute.Relation<'oneToOne', 'api::lab.lab'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -753,11 +753,11 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
       >;
     Date: Schema.Attribute.DateTime;
     export_date: Schema.Attribute.DateTime;
+    exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     export_status: Schema.Attribute.Enumeration<
       ['Pending Export', 'Exported', 'Export Failed']
     > &
       Schema.Attribute.DefaultTo<'Pending Export'>;
-    exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     harvest_record: Schema.Attribute.Relation<
       'oneToOne',
       'api::harvest-record.harvest-record'
@@ -927,8 +927,8 @@ export interface ApiQualityNotificationQualityNotification
     draftAndPublish: true;
   };
   attributes: {
-    batch_id: Schema.Attribute.String;
     batches: Schema.Attribute.Relation<'oneToMany', 'api::batch.batch'>;
+    batch_id: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1451,16 +1451,16 @@ export interface PluginUsersPermissionsUser
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    user_role: Schema.Attribute.Enumeration<
-      ['Quality Inspection', 'Farmer', 'Factory', 'Custumer', 'Admin']
-    > &
-      Schema.Attribute.Required;
     username: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
+    user_role: Schema.Attribute.Enumeration<
+      ['Quality Inspection', 'Farmer', 'Factory', 'Custumer', 'Admin']
+    > &
+      Schema.Attribute.Required;
   };
 }
 
