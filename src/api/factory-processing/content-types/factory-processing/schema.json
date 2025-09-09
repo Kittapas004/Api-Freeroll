@@ -23,20 +23,6 @@
     "Date_Received": {
       "type": "datetime"
     },
-    "Date_Processed": {
-      "type": "datetime"
-    },
-    "Processed_By": {
-      "type": "string"
-    },
-    "Unit": {
-      "type": "enumeration",
-      "enum": [
-        "kg",
-        "g",
-        "ton"
-      ]
-    },
     "Processing_Status": {
       "type": "enumeration",
       "enum": [
@@ -209,6 +195,14 @@
     },
     "operator_processor": {
       "type": "string"
+    },
+    "output_unit": {
+      "type": "enumeration",
+      "enum": [
+        "kg",
+        "packs",
+        "boxes"
+      ]
     }
   }
 }

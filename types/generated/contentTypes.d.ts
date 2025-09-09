@@ -459,7 +459,6 @@ export interface ApiExportFactoryHistoryExportFactoryHistory
     draftAndPublish: true;
   };
   attributes: {
-    batch_id: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -473,6 +472,7 @@ export interface ApiExportFactoryHistoryExportFactoryHistory
       'api::export-factory-history.export-factory-history'
     > &
       Schema.Attribute.Private;
+    lot_id: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     status_export: Schema.Attribute.Enumeration<
       ['Export Success', 'Failed', 'In Progress']
@@ -553,7 +553,6 @@ export interface ApiFactoryProcessingFactoryProcessing
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     curcuminoid_content: Schema.Attribute.Decimal;
-    Date_Processed: Schema.Attribute.DateTime;
     Date_Received: Schema.Attribute.DateTime;
     duration: Schema.Attribute.Decimal;
     e_coli: Schema.Attribute.Enumeration<['Not Detected', 'Detected']>;
@@ -579,8 +578,8 @@ export interface ApiFactoryProcessingFactoryProcessing
     moisture: Schema.Attribute.Decimal;
     operator_processor: Schema.Attribute.String;
     output_quantity: Schema.Attribute.Decimal;
+    output_unit: Schema.Attribute.Enumeration<['kg', 'packs', 'boxes']>;
     pesticide_residues: Schema.Attribute.Text;
-    Processed_By: Schema.Attribute.String;
     processing_date_custom: Schema.Attribute.Date;
     processing_method: Schema.Attribute.Enumeration<
       ['Washing', 'Slicing', 'Drying', 'Grinding', 'Sieving', 'Extraction']
@@ -613,7 +612,6 @@ export interface ApiFactoryProcessingFactoryProcessing
     >;
     temperature: Schema.Attribute.Decimal;
     total_plate_count: Schema.Attribute.Decimal;
-    Unit: Schema.Attribute.Enumeration<['kg', 'g', 'ton']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
