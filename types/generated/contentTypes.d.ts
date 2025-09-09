@@ -446,6 +446,43 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiExportFactoryHistoryExportFactoryHistory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'export_factory_histories';
+  info: {
+    description: '';
+    displayName: 'Export_factory_History';
+    pluralName: 'export-factory-histories';
+    singularName: 'export-factory-history';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    batch_id: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    export_date: Schema.Attribute.DateTime;
+    exported_by: Schema.Attribute.String;
+    export_type: Schema.Attribute.String;
+    factory: Schema.Attribute.Relation<'oneToOne', 'api::factory.factory'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::export-factory-history.export-factory-history'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    status_export: Schema.Attribute.Enumeration<
+      ['Export Success', 'Failed', 'In Progress']
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiExportHistoryExportHistory
   extends Struct.CollectionTypeSchema {
   collectionName: 'export_histories';
@@ -736,42 +773,6 @@ export interface ApiFarmFarm extends Struct.CollectionTypeSchema {
       'plugin::users-permissions.user'
     >;
     user_documentId: Schema.Attribute.String;
-  };
-}
-
-export interface ApiFarmerNotificationFarmerNotification
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'farmer_notifications';
-  info: {
-    description: '';
-    displayName: 'Farmer_Notification  ';
-    pluralName: 'farmer-notifications';
-    singularName: 'farmer-notification';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    batch_id: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    farmer_email: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::farmer-notification.farmer-notification'
-    > &
-      Schema.Attribute.Private;
-    message: Schema.Attribute.String;
-    notification_sent: Schema.Attribute.Boolean &
-      Schema.Attribute.DefaultTo<false>;
-    publishedAt: Schema.Attribute.DateTime;
-    read_status: Schema.Attribute.Boolean;
-    sent_date: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
   };
 }
 
@@ -1682,12 +1683,12 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::batch.batch': ApiBatchBatch;
+      'api::export-factory-history.export-factory-history': ApiExportFactoryHistoryExportFactoryHistory;
       'api::export-history.export-history': ApiExportHistoryExportHistory;
       'api::factory-processing.factory-processing': ApiFactoryProcessingFactoryProcessing;
       'api::factory-submission.factory-submission': ApiFactorySubmissionFactorySubmission;
       'api::factory.factory': ApiFactoryFactory;
       'api::farm.farm': ApiFarmFarm;
-      'api::farmer-notification.farmer-notification': ApiFarmerNotificationFarmerNotification;
       'api::fertilizer-record.fertilizer-record': ApiFertilizerRecordFertilizerRecord;
       'api::harvest-record.harvest-record': ApiHarvestRecordHarvestRecord;
       'api::lab-submission-record.lab-submission-record': ApiLabSubmissionRecordLabSubmissionRecord;

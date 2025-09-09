@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "export_factory_histories",
+  "info": {
+    "singularName": "export-factory-history",
+    "pluralName": "export-factory-histories",
+    "displayName": "Export_factory_History",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "batch_id": {
+      "type": "string"
+    },
+    "exported_by": {
+      "type": "string"
+    },
+    "export_type": {
+      "type": "string"
+    },
+    "export_date": {
+      "type": "datetime"
+    },
+    "status_export": {
+      "type": "enumeration",
+      "enum": [
+        "Export Success",
+        "Failed",
+        "In Progress"
+      ]
+    },
+    "factory": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::factory.factory"
+    }
+  }
+}
