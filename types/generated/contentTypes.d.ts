@@ -466,6 +466,10 @@ export interface ApiExportFactoryHistoryExportFactoryHistory
     exported_by: Schema.Attribute.String;
     export_type: Schema.Attribute.String;
     factory: Schema.Attribute.Relation<'oneToOne', 'api::factory.factory'>;
+    factory_processing: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::factory-processing.factory-processing'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -557,6 +561,10 @@ export interface ApiFactoryProcessingFactoryProcessing
     duration: Schema.Attribute.Decimal;
     e_coli: Schema.Attribute.Enumeration<['Not Detected', 'Detected']>;
     equipment_used: Schema.Attribute.String;
+    export_factory_history: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::export-factory-history.export-factory-history'
+    >;
     factory: Schema.Attribute.Relation<'manyToOne', 'api::factory.factory'>;
     factory_submission: Schema.Attribute.Relation<
       'manyToOne',

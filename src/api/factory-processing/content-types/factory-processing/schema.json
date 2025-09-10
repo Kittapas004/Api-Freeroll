@@ -203,6 +203,12 @@
         "packs",
         "boxes"
       ]
+    },
+    "export_factory_history": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::export-factory-history.export-factory-history",
+      "mappedBy": "factory_processing"
     }
   }
 }

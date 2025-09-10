@@ -35,6 +35,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::factory.factory"
+    },
+    "factory_processing": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::factory-processing.factory-processing",
+      "inversedBy": "export_factory_history"
     }
   }
 }
