@@ -593,7 +593,7 @@ export interface ApiFactoryProcessingFactoryProcessing
       ['Washing', 'Slicing', 'Drying', 'Grinding', 'Sieving', 'Extraction']
     >;
     Processing_Status: Schema.Attribute.Enumeration<
-      ['Received', 'Processing', 'Completed']
+      ['Received', 'Processing', 'Completed', 'Export Success']
     >;
     product_grade: Schema.Attribute.Enumeration<
       [
