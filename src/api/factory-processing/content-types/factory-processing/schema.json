@@ -210,6 +210,12 @@
       "relation": "oneToOne",
       "target": "api::export-factory-history.export-factory-history",
       "mappedBy": "factory_processing"
+    },
+    "factory_notifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::factory-notification.factory-notification",
+      "mappedBy": "factory_processing"
     }
   }
 }

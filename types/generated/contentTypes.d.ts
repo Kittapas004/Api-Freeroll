@@ -398,6 +398,10 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     Cultivation_Method: Schema.Attribute.String;
     Date_of_Planting: Schema.Attribute.Date;
+    factory_notifications: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-notification.factory-notification'
+    >;
     factory_submissions: Schema.Attribute.Relation<
       'oneToMany',
       'api::factory-submission.factory-submission'
@@ -528,6 +532,50 @@ export interface ApiExportHistoryExportHistory
   };
 }
 
+export interface ApiFactoryNotificationFactoryNotification
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'factory_notifications';
+  info: {
+    description: '';
+    displayName: 'Factory_Notification';
+    pluralName: 'factory-notifications';
+    singularName: 'factory-notification';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    batch: Schema.Attribute.Relation<'manyToOne', 'api::batch.batch'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Date: Schema.Attribute.DateTime;
+    factory_processing: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::factory-processing.factory-processing'
+    >;
+    factory_submission: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::factory-submission.factory-submission'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-notification.factory-notification'
+    > &
+      Schema.Attribute.Private;
+    Notification_status: Schema.Attribute.Enumeration<
+      ['General', 'Succeed', 'Failed', 'Warning']
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    Text: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user_documentId: Schema.Attribute.String;
+  };
+}
+
 export interface ApiFactoryProcessingFactoryProcessing
   extends Struct.CollectionTypeSchema {
   collectionName: 'factory_processings';
@@ -566,6 +614,10 @@ export interface ApiFactoryProcessingFactoryProcessing
       'api::export-factory-history.export-factory-history'
     >;
     factory: Schema.Attribute.Relation<'manyToOne', 'api::factory.factory'>;
+    factory_notifications: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-notification.factory-notification'
+    >;
     factory_submission: Schema.Attribute.Relation<
       'manyToOne',
       'api::factory-submission.factory-submission'
@@ -649,6 +701,10 @@ export interface ApiFactorySubmissionFactorySubmission
       Schema.Attribute.Private;
     Date: Schema.Attribute.DateTime;
     factory: Schema.Attribute.Relation<'manyToOne', 'api::factory.factory'>;
+    factory_notifications: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-notification.factory-notification'
+    >;
     factory_processings: Schema.Attribute.Relation<
       'oneToMany',
       'api::factory-processing.factory-processing'
@@ -1691,6 +1747,7 @@ declare module '@strapi/strapi' {
       'api::batch.batch': ApiBatchBatch;
       'api::export-factory-history.export-factory-history': ApiExportFactoryHistoryExportFactoryHistory;
       'api::export-history.export-history': ApiExportHistoryExportHistory;
+      'api::factory-notification.factory-notification': ApiFactoryNotificationFactoryNotification;
       'api::factory-processing.factory-processing': ApiFactoryProcessingFactoryProcessing;
       'api::factory-submission.factory-submission': ApiFactorySubmissionFactorySubmission;
       'api::factory.factory': ApiFactoryFactory;

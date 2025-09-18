@@ -70,6 +70,12 @@
       "relation": "oneToMany",
       "target": "api::factory-processing.factory-processing",
       "mappedBy": "factory_submission"
+    },
+    "factory_notifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::factory-notification.factory-notification",
+      "mappedBy": "factory_submission"
     }
   }
 }

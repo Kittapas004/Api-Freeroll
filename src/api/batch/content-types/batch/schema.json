@@ -114,6 +114,12 @@
     },
     "Total_Planting_Cost": {
       "type": "decimal"
+    },
+    "factory_notifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::factory-notification.factory-notification",
+      "mappedBy": "batch"
     }
   }
 }
