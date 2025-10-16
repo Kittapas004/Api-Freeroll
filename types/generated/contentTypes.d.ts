@@ -598,17 +598,16 @@ export interface ApiFactoryProcessingFactoryProcessing
     batch_lot_number: Schema.Attribute.String;
     cadmium_ppm: Schema.Attribute.Decimal;
     certification_status: Schema.Attribute.Enumeration<
-      ['Pass', 'Fail', 'Pending']
-    >;
+      ['Pass', 'Fail', 'Pending', 'Under_Review']
+    > &
+      Schema.Attribute.DefaultTo<'Pending'>;
     compliance_notes: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     curcuminoid_content: Schema.Attribute.Decimal;
     Date_Received: Schema.Attribute.DateTime;
-    duration: Schema.Attribute.Decimal;
     e_coli: Schema.Attribute.Enumeration<['Not Detected', 'Detected']>;
-    equipment_used: Schema.Attribute.String;
     export_factory_history: Schema.Attribute.Relation<
       'oneToOne',
       'api::export-factory-history.export-factory-history'
@@ -623,10 +622,20 @@ export interface ApiFactoryProcessingFactoryProcessing
       'api::factory-submission.factory-submission'
     >;
     final_product_type: Schema.Attribute.Enumeration<
-      ['Powder', 'Extract', 'Capsule', 'Tea Bag']
+      [
+        'Powder',
+        'Extract',
+        'Capsule',
+        'Tea Bag',
+        'Dried Slice',
+        'Fresh Rhizome',
+      ]
     >;
     incoming_weight: Schema.Attribute.Decimal;
     inspection_notes: Schema.Attribute.Text;
+    inspector_name: Schema.Attribute.String;
+    is_processing_mode: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     lead_ppm: Schema.Attribute.Decimal;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -636,17 +645,19 @@ export interface ApiFactoryProcessingFactoryProcessing
       Schema.Attribute.Private;
     mercury_ppm: Schema.Attribute.Decimal;
     moisture: Schema.Attribute.Decimal;
-    operator_processor: Schema.Attribute.String;
     output_quantity: Schema.Attribute.Decimal;
-    output_unit: Schema.Attribute.Enumeration<['kg', 'packs', 'boxes']>;
+    output_records_json: Schema.Attribute.Text;
+    output_unit: Schema.Attribute.Enumeration<
+      ['kg', 'packs', 'boxes', 'grams', 'pieces']
+    > &
+      Schema.Attribute.DefaultTo<'kg'>;
     pesticide_residues: Schema.Attribute.Text;
-    processing_date_custom: Schema.Attribute.Date;
-    processing_method: Schema.Attribute.Enumeration<
-      ['Washing', 'Slicing', 'Drying', 'Grinding', 'Sieving', 'Extraction']
-    >;
+    processed_weight: Schema.Attribute.Decimal;
+    processing_operations: Schema.Attribute.Text;
     Processing_Status: Schema.Attribute.Enumeration<
       ['Received', 'Processing', 'Completed', 'Export Success']
     >;
+    processing_weight_history: Schema.Attribute.Text;
     product_grade: Schema.Attribute.Enumeration<
       [
         'Herbal Grade (5%)',
@@ -654,10 +665,14 @@ export interface ApiFactoryProcessingFactoryProcessing
         'Herbal Grade (7%)',
         'Herbal Grade (8%)',
         'Herbal Grade (9%)',
-        'Premium > 9',
+        'Premium > 9%',
       ]
     >;
     publishedAt: Schema.Attribute.DateTime;
+    quality_inspection_completed: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    quality_inspection_date: Schema.Attribute.DateTime;
+    quality_inspector: Schema.Attribute.String;
     raw_material_source: Schema.Attribute.String;
     raw_material_type: Schema.Attribute.Enumeration<
       ['Fresh Rhizome', 'Dried Slice', 'Powder']
@@ -665,18 +680,25 @@ export interface ApiFactoryProcessingFactoryProcessing
     remaining_stock: Schema.Attribute.Decimal;
     salmonella: Schema.Attribute.Enumeration<['Not Detected', 'Detected']>;
     standard_criteria: Schema.Attribute.Enumeration<
-      ['GAP', 'THP', 'GMP', 'Organic']
+      ['GAP', 'THP', 'GMP', 'Organic', 'HACCP', 'ISO']
     >;
     target_market: Schema.Attribute.Enumeration<
-      ['Food', 'Supplement', 'Cosmetic', 'Export']
+      [
+        'Food',
+        'Supplement',
+        'Cosmetic',
+        'Export',
+        'Pharmaceutical',
+        'Industrial',
+      ]
     >;
-    temperature: Schema.Attribute.Decimal;
     total_plate_count: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     user_documentId: Schema.Attribute.String;
     waste_quantity: Schema.Attribute.Decimal;
+    workflow_step: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     yeast_mold: Schema.Attribute.Decimal;
   };
 }

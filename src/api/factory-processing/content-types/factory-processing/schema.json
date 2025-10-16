@@ -49,6 +49,14 @@
       "target": "api::factory-submission.factory-submission",
       "inversedBy": "factory_processings"
     },
+    "processing_operations": {
+      "type": "text",
+      "description": "JSON string ของขั้นตอนการแปรรูป (สำหรับ UI)"
+    },
+    "output_records_json": {
+      "type": "text",
+      "description": "JSON string ของการบันทึกผลผลิตหลายครั้ง (สำหรับ UI เก็บ multiple outputs ใน 1 session)"
+    },
     "raw_material_type": {
       "type": "enumeration",
       "enum": [
@@ -110,28 +118,36 @@
     "pesticide_residues": {
       "type": "text"
     },
-    "processing_method": {
-      "type": "enumeration",
-      "enum": [
-        "Washing",
-        "Slicing",
-        "Drying",
-        "Grinding",
-        "Sieving",
-        "Extraction"
-      ]
+    "quality_inspection_completed": {
+      "type": "boolean",
+      "default": false,
+      "description": "สถานะการตรวจสอบคุณภาพ Step 1"
     },
-    "processing_date_custom": {
-      "type": "date"
+    "quality_inspector": {
+      "type": "string",
+      "description": "ผู้ตรวจสอบคุณภาพ"
     },
-    "duration": {
-      "type": "decimal"
+    "quality_inspection_date": {
+      "type": "datetime",
+      "description": "วันที่ตรวจสอบคุณภาพ"
     },
-    "temperature": {
-      "type": "decimal"
+    "workflow_step": {
+      "type": "integer",
+      "default": 0,
+      "description": "ขั้นตอนปัจจุบันในกระบวนการแปรรูป (0=overview, 1-4=steps)"
     },
-    "equipment_used": {
-      "type": "string"
+    "is_processing_mode": {
+      "type": "boolean",
+      "default": false,
+      "description": "สถานะการทำงานในโหมดแปรรูป"
+    },
+    "inspector_name": {
+      "type": "string",
+      "description": "ชื่อผู้ตรวจสอบคุณภาพ"
+    },
+    "processed_weight": {
+      "type": "decimal",
+      "description": "น้ำหนักที่แปรรูปไปแล้ว"
     },
     "final_product_type": {
       "type": "enumeration",
@@ -139,25 +155,62 @@
         "Powder",
         "Extract",
         "Capsule",
-        "Tea Bag"
-      ]
+        "Tea Bag",
+        "Dried Slice",
+        "Fresh Rhizome"
+      ],
+      "description": "ประเภทผลิตภัณฑ์สุดท้าย"
     },
     "output_quantity": {
-      "type": "decimal"
+      "type": "decimal",
+      "description": "ปริมาณผลผลิต"
+    },
+    "output_unit": {
+      "type": "enumeration",
+      "enum": [
+        "kg",
+        "packs",
+        "boxes",
+        "grams",
+        "pieces"
+      ],
+      "default": "kg",
+      "description": "หน่วยของผลผลิต"
+    },
+    "waste_quantity": {
+      "type": "decimal",
+      "description": "ปริมาณของเสีย"
     },
     "remaining_stock": {
-      "type": "decimal"
+      "type": "decimal",
+      "description": "คงเหลือในสต็อก"
+    },
+    "standard_criteria": {
+      "type": "enumeration",
+      "enum": [
+        "GAP",
+        "THP",
+        "GMP",
+        "Organic",
+        "HACCP",
+        "ISO"
+      ],
+      "description": "มาตรฐานการรับรอง"
     },
     "certification_status": {
       "type": "enumeration",
       "enum": [
         "Pass",
         "Fail",
-        "Pending"
-      ]
+        "Pending",
+        "Under_Review"
+      ],
+      "default": "Pending",
+      "description": "สถานะการรับรองคุณภาพ"
     },
     "compliance_notes": {
-      "type": "text"
+      "type": "text",
+      "description": "หมายเหตุการรับรองคุณภาพ"
     },
     "product_grade": {
       "type": "enumeration",
@@ -167,8 +220,9 @@
         "Herbal Grade (7%)",
         "Herbal Grade (8%)",
         "Herbal Grade (9%)",
-        "Premium > 9"
-      ]
+        "Premium > 9%"
+      ],
+      "description": "เกรดผลิตภัณฑ์"
     },
     "target_market": {
       "type": "enumeration",
@@ -176,34 +230,14 @@
         "Food",
         "Supplement",
         "Cosmetic",
-        "Export"
-      ]
-    },
-    "standard_criteria": {
-      "type": "enumeration",
-      "enum": [
-        "GAP",
-        "THP",
-        "GMP",
-        "Organic"
-      ]
+        "Export",
+        "Pharmaceutical",
+        "Industrial"
+      ],
+      "description": "ตลาดเป้าหมาย"
     },
     "user_documentId": {
       "type": "string"
-    },
-    "waste_quantity": {
-      "type": "decimal"
-    },
-    "operator_processor": {
-      "type": "string"
-    },
-    "output_unit": {
-      "type": "enumeration",
-      "enum": [
-        "kg",
-        "packs",
-        "boxes"
-      ]
     },
     "export_factory_history": {
       "type": "relation",
@@ -216,6 +250,9 @@
       "relation": "oneToMany",
       "target": "api::factory-notification.factory-notification",
       "mappedBy": "factory_processing"
+    },
+    "processing_weight_history": {
+      "type": "text"
     }
   }
 }
