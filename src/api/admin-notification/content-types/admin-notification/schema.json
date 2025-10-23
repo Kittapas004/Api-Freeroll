@@ -1,0 +1,79 @@
+{
+  "kind": "collectionType",
+  "collectionName": "admin_notifications",
+  "info": {
+    "singularName": "admin-notification",
+    "pluralName": "admin-notifications",
+    "displayName": "Admin_Notification",
+    "description": "Notifications sent by Admin to users"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "Message": {
+      "type": "text",
+      "required": true
+    },
+    "Target_Role": {
+      "type": "enumeration",
+      "enum": [
+        "All",
+        "Farmer",
+        "Factory",
+        "Quality Inspection"
+      ],
+      "required": true,
+      "default": "All"
+    },
+    "Priority": {
+      "type": "enumeration",
+      "enum": [
+        "Low",
+        "Normal",
+        "High",
+        "Urgent"
+      ],
+      "default": "Normal"
+    },
+    "Category": {
+      "type": "enumeration",
+      "enum": [
+        "Announcement",
+        "System Update",
+        "Maintenance",
+        "Alert",
+        "General"
+      ],
+      "default": "General"
+    },
+    "Status": {
+      "type": "enumeration",
+      "enum": [
+        "Active",
+        "Expired",
+        "Draft"
+      ],
+      "default": "Active"
+    },
+    "Expire_Date": {
+      "type": "datetime"
+    },
+    "Created_By": {
+      "type": "string"
+    },
+    "Icon": {
+      "type": "string"
+    },
+    "Link_Url": {
+      "type": "string"
+    },
+    "Read_By": {
+      "type": "json"
+    }
+  }
+}
