@@ -466,11 +466,11 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::harvest-record.harvest-record'
     >;
+    Labor_Cost: Schema.Attribute.Decimal;
     lab_submission_records: Schema.Attribute.Relation<
       'oneToMany',
       'api::lab-submission-record.lab-submission-record'
     >;
-    Labor_Cost: Schema.Attribute.Decimal;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::batch.batch'> &
       Schema.Attribute.Private;
@@ -547,8 +547,8 @@ export interface ApiExportFactoryHistoryExportFactoryHistory
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     export_date: Schema.Attribute.DateTime;
-    export_type: Schema.Attribute.String;
     exported_by: Schema.Attribute.String;
+    export_type: Schema.Attribute.String;
     factory: Schema.Attribute.Relation<'oneToOne', 'api::factory.factory'>;
     factory_processing: Schema.Attribute.Relation<
       'oneToOne',
@@ -590,9 +590,9 @@ export interface ApiExportHistoryExportHistory
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     export_date: Schema.Attribute.Date;
-    export_status: Schema.Attribute.String;
     exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     exported_by: Schema.Attribute.String;
+    export_status: Schema.Attribute.String;
     farm_name: Schema.Attribute.String;
     lab: Schema.Attribute.Relation<'oneToOne', 'api::lab.lab'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -1147,10 +1147,6 @@ export interface ApiHarvestRecordHarvestRecord
     kamincal_second_time: Schema.Attribute.Decimal;
     kamincal_solvent_volume: Schema.Attribute.Decimal;
     kamincal_third_time: Schema.Attribute.Decimal;
-    lab_submission_record: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::lab-submission-record.lab-submission-record'
-    >;
     labor_cost: Schema.Attribute.Decimal &
       Schema.Attribute.SetMinMax<
         {
@@ -1159,6 +1155,10 @@ export interface ApiHarvestRecordHarvestRecord
         number
       > &
       Schema.Attribute.DefaultTo<0>;
+    lab_submission_record: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::lab-submission-record.lab-submission-record'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1247,11 +1247,11 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
       >;
     Date: Schema.Attribute.DateTime;
     export_date: Schema.Attribute.DateTime;
+    exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     export_status: Schema.Attribute.Enumeration<
       ['Pending Export', 'Exported', 'Export Failed']
     > &
       Schema.Attribute.DefaultTo<'Pending Export'>;
-    exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     harvest_record: Schema.Attribute.Relation<
       'oneToOne',
       'api::harvest-record.harvest-record'
@@ -1480,8 +1480,8 @@ export interface ApiQualityNotificationQualityNotification
     draftAndPublish: true;
   };
   attributes: {
-    batch_id: Schema.Attribute.String;
     batches: Schema.Attribute.Relation<'oneToMany', 'api::batch.batch'>;
+    batch_id: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2091,16 +2091,16 @@ export interface PluginUsersPermissionsUser
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    user_role: Schema.Attribute.Enumeration<
-      ['Quality Inspection', 'Farmer', 'Factory', 'Custumer', 'Admin']
-    > &
-      Schema.Attribute.Required;
     username: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
+    user_role: Schema.Attribute.Enumeration<
+      ['Quality Inspection', 'Farmer', 'Factory', 'Custumer', 'Admin']
+    > &
+      Schema.Attribute.Required;
   };
 }
 
