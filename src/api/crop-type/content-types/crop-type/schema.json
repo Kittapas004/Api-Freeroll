@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "crop_types",
+  "info": {
+    "singularName": "crop-type",
+    "pluralName": "crop-types",
+    "displayName": "CropType",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "type": {
+      "type": "string"
+    }
+  }
+}

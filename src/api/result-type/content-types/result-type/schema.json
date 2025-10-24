@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "result_types",
+  "info": {
+    "singularName": "result-type",
+    "pluralName": "result-types",
+    "displayName": "ResultType"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "type": {
+      "type": "string"
+    }
+  }
+}

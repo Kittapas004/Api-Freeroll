@@ -37,13 +37,6 @@
         "g"
       ]
     },
-    "Fertilizer_type": {
-      "type": "enumeration",
-      "enum": [
-        "Organic",
-        "Conventional"
-      ]
-    },
     "batch": {
       "type": "relation",
       "relation": "manyToOne",
@@ -64,6 +57,9 @@
       "type": "decimal",
       "min": 0,
       "default": 0
+    },
+    "Fertilizer_type": {
+      "type": "string"
     }
   }
 }

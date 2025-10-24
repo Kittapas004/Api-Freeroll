@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fertilizer_types",
+  "info": {
+    "singularName": "fertilizer-type",
+    "pluralName": "fertilizer-types",
+    "displayName": "FertilizerType"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "type": {
+      "type": "string"
+    }
+  }
+}

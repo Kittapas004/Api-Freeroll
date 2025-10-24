@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "factory_processing_methods",
+  "info": {
+    "singularName": "factory-processing-method",
+    "pluralName": "factory-processing-methods",
+    "displayName": "FactoryProcessingMethod"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "method": {
+      "type": "string"
+    }
+  }
+}

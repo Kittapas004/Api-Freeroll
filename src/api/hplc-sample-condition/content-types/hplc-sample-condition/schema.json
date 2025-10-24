@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "hplc_sample_conditions",
+  "info": {
+    "singularName": "hplc-sample-condition",
+    "pluralName": "hplc-sample-conditions",
+    "displayName": "HplcSampleCondition"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "condition": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lab_testing_methods",
+  "info": {
+    "singularName": "lab-testing-method",
+    "pluralName": "lab-testing-methods",
+    "displayName": "LabTestingMethod"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "method": {
+      "type": "string"
+    }
+  }
+}

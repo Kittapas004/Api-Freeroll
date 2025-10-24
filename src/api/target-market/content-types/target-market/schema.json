@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "target_markets",
+  "info": {
+    "singularName": "target-market",
+    "pluralName": "target-markets",
+    "displayName": "TargetMarket"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "target": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "plant_varieties",
+  "info": {
+    "singularName": "plant-variety",
+    "pluralName": "plant-varieties",
+    "displayName": "PlantVariety",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "variety": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "standard_criterias",
+  "info": {
+    "singularName": "standard-criteria",
+    "pluralName": "standard-criterias",
+    "displayName": "StandardCriteria"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "criteria": {
+      "type": "string"
+    }
+  }
+}

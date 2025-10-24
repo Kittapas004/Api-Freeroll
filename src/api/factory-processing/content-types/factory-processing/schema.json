@@ -149,18 +149,6 @@
       "type": "decimal",
       "description": "น้ำหนักที่แปรรูปไปแล้ว"
     },
-    "final_product_type": {
-      "type": "enumeration",
-      "enum": [
-        "Powder",
-        "Extract",
-        "Capsule",
-        "Tea Bag",
-        "Dried Slice",
-        "Fresh Rhizome"
-      ],
-      "description": "ประเภทผลิตภัณฑ์สุดท้าย"
-    },
     "output_quantity": {
       "type": "decimal",
       "description": "ปริมาณผลผลิต"
@@ -184,18 +172,6 @@
     "remaining_stock": {
       "type": "decimal",
       "description": "คงเหลือในสต็อก"
-    },
-    "standard_criteria": {
-      "type": "enumeration",
-      "enum": [
-        "GAP",
-        "THP",
-        "GMP",
-        "Organic",
-        "HACCP",
-        "ISO"
-      ],
-      "description": "มาตรฐานการรับรอง"
     },
     "certification_status": {
       "type": "enumeration",
@@ -224,18 +200,6 @@
       ],
       "description": "เกรดผลิตภัณฑ์"
     },
-    "target_market": {
-      "type": "enumeration",
-      "enum": [
-        "Food",
-        "Supplement",
-        "Cosmetic",
-        "Export",
-        "Pharmaceutical",
-        "Industrial"
-      ],
-      "description": "ตลาดเป้าหมาย"
-    },
     "user_documentId": {
       "type": "string"
     },
@@ -253,6 +217,15 @@
     },
     "processing_weight_history": {
       "type": "text"
+    },
+    "target_market": {
+      "type": "string"
+    },
+    "standard_criteria": {
+      "type": "string"
+    },
+    "final_product_type": {
+      "type": "string"
     }
   }
 }

@@ -11,13 +11,6 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "Crop_Type": {
-      "type": "enumeration",
-      "enum": [
-        "Turmeric",
-        "Special Turmeric"
-      ]
-    },
     "Cultivation_Method": {
       "type": "enumeration",
       "enum": [
@@ -70,6 +63,9 @@
     },
     "Longitude": {
       "type": "float"
+    },
+    "Crop_Type": {
+      "type": "string"
     }
   }
 }

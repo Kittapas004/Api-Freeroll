@@ -415,11 +415,11 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::harvest-record.harvest-record'
     >;
-    Labor_Cost: Schema.Attribute.Decimal;
     lab_submission_records: Schema.Attribute.Relation<
       'oneToMany',
       'api::lab-submission-record.lab-submission-record'
     >;
+    Labor_Cost: Schema.Attribute.Decimal;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::batch.batch'> &
       Schema.Attribute.Private;
@@ -450,6 +450,35 @@ export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCropTypeCropType extends Struct.CollectionTypeSchema {
+  collectionName: 'crop_types';
+  info: {
+    description: '';
+    displayName: 'CropType';
+    pluralName: 'crop-types';
+    singularName: 'crop-type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::crop-type.crop-type'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiExportFactoryHistoryExportFactoryHistory
   extends Struct.CollectionTypeSchema {
   collectionName: 'export_factory_histories';
@@ -467,8 +496,8 @@ export interface ApiExportFactoryHistoryExportFactoryHistory
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     export_date: Schema.Attribute.DateTime;
-    exported_by: Schema.Attribute.String;
     export_type: Schema.Attribute.String;
+    exported_by: Schema.Attribute.String;
     factory: Schema.Attribute.Relation<'oneToOne', 'api::factory.factory'>;
     factory_processing: Schema.Attribute.Relation<
       'oneToOne',
@@ -510,9 +539,9 @@ export interface ApiExportHistoryExportHistory
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     export_date: Schema.Attribute.Date;
+    export_status: Schema.Attribute.String;
     exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     exported_by: Schema.Attribute.String;
-    export_status: Schema.Attribute.String;
     farm_name: Schema.Attribute.String;
     lab: Schema.Attribute.Relation<'oneToOne', 'api::lab.lab'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -576,6 +605,35 @@ export interface ApiFactoryNotificationFactoryNotification
   };
 }
 
+export interface ApiFactoryProcessingMethodFactoryProcessingMethod
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'factory_processing_methods';
+  info: {
+    displayName: 'FactoryProcessingMethod';
+    pluralName: 'factory-processing-methods';
+    singularName: 'factory-processing-method';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::factory-processing-method.factory-processing-method'
+    > &
+      Schema.Attribute.Private;
+    method: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFactoryProcessingFactoryProcessing
   extends Struct.CollectionTypeSchema {
   collectionName: 'factory_processings';
@@ -621,16 +679,7 @@ export interface ApiFactoryProcessingFactoryProcessing
       'manyToOne',
       'api::factory-submission.factory-submission'
     >;
-    final_product_type: Schema.Attribute.Enumeration<
-      [
-        'Powder',
-        'Extract',
-        'Capsule',
-        'Tea Bag',
-        'Dried Slice',
-        'Fresh Rhizome',
-      ]
-    >;
+    final_product_type: Schema.Attribute.String;
     incoming_weight: Schema.Attribute.Decimal;
     inspection_notes: Schema.Attribute.Text;
     inspector_name: Schema.Attribute.String;
@@ -679,19 +728,8 @@ export interface ApiFactoryProcessingFactoryProcessing
     >;
     remaining_stock: Schema.Attribute.Decimal;
     salmonella: Schema.Attribute.Enumeration<['Not Detected', 'Detected']>;
-    standard_criteria: Schema.Attribute.Enumeration<
-      ['GAP', 'THP', 'GMP', 'Organic', 'HACCP', 'ISO']
-    >;
-    target_market: Schema.Attribute.Enumeration<
-      [
-        'Food',
-        'Supplement',
-        'Cosmetic',
-        'Export',
-        'Pharmaceutical',
-        'Industrial',
-      ]
-    >;
+    standard_criteria: Schema.Attribute.String;
+    target_market: Schema.Attribute.String;
     total_plate_count: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -832,7 +870,7 @@ export interface ApiFarmFarm extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Crop_Type: Schema.Attribute.Enumeration<['Turmeric', 'Special Turmeric']>;
+    Crop_Type: Schema.Attribute.String;
     Cultivation_Method: Schema.Attribute.Enumeration<
       ['Organic', 'Conventional']
     >;
@@ -894,7 +932,7 @@ export interface ApiFertilizerRecordFertilizerRecord
         number
       > &
       Schema.Attribute.DefaultTo<0>;
-    Fertilizer_type: Schema.Attribute.Enumeration<['Organic', 'Conventional']>;
+    Fertilizer_type: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -915,6 +953,93 @@ export interface ApiFertilizerRecordFertilizerRecord
         number
       > &
       Schema.Attribute.DefaultTo<0>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFertilizerTypeFertilizerType
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'fertilizer_types';
+  info: {
+    displayName: 'FertilizerType';
+    pluralName: 'fertilizer-types';
+    singularName: 'fertilizer-type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fertilizer-type.fertilizer-type'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFinalProductTypeFinalProductType
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'final_product_types';
+  info: {
+    displayName: 'FinalProductType';
+    pluralName: 'final-product-types';
+    singularName: 'final-product-type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::final-product-type.final-product-type'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHarvestMethodHarvestMethod
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'harvest_methods';
+  info: {
+    displayName: 'HarvestMethod';
+    pluralName: 'harvest-methods';
+    singularName: 'harvest-method';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::harvest-method.harvest-method'
+    > &
+      Schema.Attribute.Private;
+    method: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -971,6 +1096,10 @@ export interface ApiHarvestRecordHarvestRecord
     kamincal_second_time: Schema.Attribute.Decimal;
     kamincal_solvent_volume: Schema.Attribute.Decimal;
     kamincal_third_time: Schema.Attribute.Decimal;
+    lab_submission_record: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::lab-submission-record.lab-submission-record'
+    >;
     labor_cost: Schema.Attribute.Decimal &
       Schema.Attribute.SetMinMax<
         {
@@ -979,25 +1108,19 @@ export interface ApiHarvestRecordHarvestRecord
         number
       > &
       Schema.Attribute.DefaultTo<0>;
-    lab_submission_record: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::lab-submission-record.lab-submission-record'
-    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::harvest-record.harvest-record'
     > &
       Schema.Attribute.Private;
-    Method: Schema.Attribute.Enumeration<
-      ['Manual Harvesting', 'Machine Harvesting']
-    >;
+    Method: Schema.Attribute.String;
     Note: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
     quality_grade: Schema.Attribute.Enumeration<
       ['Grade A', 'Grade B', 'Grade C', 'Grade D', 'Grade F']
     >;
-    Result_type: Schema.Attribute.Enumeration<['UV-Vis', 'LED']>;
+    Result_type: Schema.Attribute.String;
     Submission_status: Schema.Attribute.Enumeration<
       ['Completed', 'Pending', 'Failed', 'Waiting']
     >;
@@ -1014,6 +1137,35 @@ export interface ApiHarvestRecordHarvestRecord
       Schema.Attribute.Private;
     yleld: Schema.Attribute.Decimal;
     Yleld_unit: Schema.Attribute.Enumeration<['kg', 'g']>;
+  };
+}
+
+export interface ApiHplcSampleConditionHplcSampleCondition
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'hplc_sample_conditions';
+  info: {
+    displayName: 'HplcSampleCondition';
+    pluralName: 'hplc-sample-conditions';
+    singularName: 'hplc-sample-condition';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    condition: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::hplc-sample-condition.hplc-sample-condition'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1044,11 +1196,11 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
       >;
     Date: Schema.Attribute.DateTime;
     export_date: Schema.Attribute.DateTime;
-    exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     export_status: Schema.Attribute.Enumeration<
       ['Pending Export', 'Exported', 'Export Failed']
     > &
       Schema.Attribute.DefaultTo<'Pending Export'>;
+    exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     harvest_record: Schema.Attribute.Relation<
       'oneToOne',
       'api::harvest-record.harvest-record'
@@ -1134,6 +1286,35 @@ export interface ApiLabSubmissionRecordLabSubmissionRecord
   };
 }
 
+export interface ApiLabTestingMethodLabTestingMethod
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'lab_testing_methods';
+  info: {
+    displayName: 'LabTestingMethod';
+    pluralName: 'lab-testing-methods';
+    singularName: 'lab-testing-method';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lab-testing-method.lab-testing-method'
+    > &
+      Schema.Attribute.Private;
+    method: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiLabLab extends Struct.CollectionTypeSchema {
   collectionName: 'labs';
   info: {
@@ -1205,6 +1386,36 @@ export interface ApiNotificationNotification
   };
 }
 
+export interface ApiPlantVarietyPlantVariety
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'plant_varieties';
+  info: {
+    description: '';
+    displayName: 'PlantVariety';
+    pluralName: 'plant-varieties';
+    singularName: 'plant-variety';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::plant-variety.plant-variety'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    variety: Schema.Attribute.String;
+  };
+}
+
 export interface ApiQualityNotificationQualityNotification
   extends Struct.CollectionTypeSchema {
   collectionName: 'quality_notifications';
@@ -1218,8 +1429,8 @@ export interface ApiQualityNotificationQualityNotification
     draftAndPublish: true;
   };
   attributes: {
-    batches: Schema.Attribute.Relation<'oneToMany', 'api::batch.batch'>;
     batch_id: Schema.Attribute.String;
+    batches: Schema.Attribute.Relation<'oneToMany', 'api::batch.batch'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1245,6 +1456,92 @@ export interface ApiQualityNotificationQualityNotification
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     user_documentId: Schema.Attribute.String;
+  };
+}
+
+export interface ApiResultTypeResultType extends Struct.CollectionTypeSchema {
+  collectionName: 'result_types';
+  info: {
+    displayName: 'ResultType';
+    pluralName: 'result-types';
+    singularName: 'result-type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::result-type.result-type'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStandardCriteriaStandardCriteria
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'standard_criterias';
+  info: {
+    displayName: 'StandardCriteria';
+    pluralName: 'standard-criterias';
+    singularName: 'standard-criteria';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    criteria: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::standard-criteria.standard-criteria'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTargetMarketTargetMarket
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'target_markets';
+  info: {
+    displayName: 'TargetMarket';
+    pluralName: 'target-markets';
+    singularName: 'target-market';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::target-market.target-market'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    target: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1743,16 +2040,16 @@ export interface PluginUsersPermissionsUser
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user_role: Schema.Attribute.Enumeration<
+      ['Quality Inspection', 'Farmer', 'Factory', 'Custumer', 'Admin']
+    > &
+      Schema.Attribute.Required;
     username: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
-    user_role: Schema.Attribute.Enumeration<
-      ['Quality Inspection', 'Farmer', 'Factory', 'Custumer', 'Admin']
-    > &
-      Schema.Attribute.Required;
   };
 }
 
@@ -1767,19 +2064,30 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::batch.batch': ApiBatchBatch;
+      'api::crop-type.crop-type': ApiCropTypeCropType;
       'api::export-factory-history.export-factory-history': ApiExportFactoryHistoryExportFactoryHistory;
       'api::export-history.export-history': ApiExportHistoryExportHistory;
       'api::factory-notification.factory-notification': ApiFactoryNotificationFactoryNotification;
+      'api::factory-processing-method.factory-processing-method': ApiFactoryProcessingMethodFactoryProcessingMethod;
       'api::factory-processing.factory-processing': ApiFactoryProcessingFactoryProcessing;
       'api::factory-submission.factory-submission': ApiFactorySubmissionFactorySubmission;
       'api::factory.factory': ApiFactoryFactory;
       'api::farm.farm': ApiFarmFarm;
       'api::fertilizer-record.fertilizer-record': ApiFertilizerRecordFertilizerRecord;
+      'api::fertilizer-type.fertilizer-type': ApiFertilizerTypeFertilizerType;
+      'api::final-product-type.final-product-type': ApiFinalProductTypeFinalProductType;
+      'api::harvest-method.harvest-method': ApiHarvestMethodHarvestMethod;
       'api::harvest-record.harvest-record': ApiHarvestRecordHarvestRecord;
+      'api::hplc-sample-condition.hplc-sample-condition': ApiHplcSampleConditionHplcSampleCondition;
       'api::lab-submission-record.lab-submission-record': ApiLabSubmissionRecordLabSubmissionRecord;
+      'api::lab-testing-method.lab-testing-method': ApiLabTestingMethodLabTestingMethod;
       'api::lab.lab': ApiLabLab;
       'api::notification.notification': ApiNotificationNotification;
+      'api::plant-variety.plant-variety': ApiPlantVarietyPlantVariety;
       'api::quality-notification.quality-notification': ApiQualityNotificationQualityNotification;
+      'api::result-type.result-type': ApiResultTypeResultType;
+      'api::standard-criteria.standard-criteria': ApiStandardCriteriaStandardCriteria;
+      'api::target-market.target-market': ApiTargetMarketTargetMarket;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

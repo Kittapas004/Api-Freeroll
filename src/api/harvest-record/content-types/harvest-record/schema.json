@@ -27,13 +27,6 @@
         "Grade F"
       ]
     },
-    "Method": {
-      "type": "enumeration",
-      "enum": [
-        "Manual Harvesting",
-        "Machine Harvesting"
-      ]
-    },
     "Note": {
       "type": "text"
     },
@@ -127,13 +120,6 @@
     "kamincal_third_time": {
       "type": "decimal"
     },
-    "Result_type": {
-      "type": "enumeration",
-      "enum": [
-        "UV-Vis",
-        "LED"
-      ]
-    },
     "labor_cost": {
       "type": "decimal",
       "min": 0,
@@ -148,6 +134,12 @@
       "type": "decimal",
       "min": 0,
       "default": 0
+    },
+    "Method": {
+      "type": "string"
+    },
+    "Result_type": {
+      "type": "string"
     }
   }
 }

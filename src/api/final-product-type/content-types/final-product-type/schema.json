@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "final_product_types",
+  "info": {
+    "singularName": "final-product-type",
+    "pluralName": "final-product-types",
+    "displayName": "FinalProductType"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "type": {
+      "type": "string"
+    }
+  }
+}

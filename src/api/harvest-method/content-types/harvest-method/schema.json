@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "harvest_methods",
+  "info": {
+    "singularName": "harvest-method",
+    "pluralName": "harvest-methods",
+    "displayName": "HarvestMethod"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "method": {
+      "type": "string"
+    }
+  }
+}
