@@ -369,6 +369,57 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAdminNotificationAdminNotification
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'admin_notifications';
+  info: {
+    description: 'Notifications sent by Admin to users';
+    displayName: 'Admin_Notification';
+    pluralName: 'admin-notifications';
+    singularName: 'admin-notification';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Category: Schema.Attribute.Enumeration<
+      ['Announcement', 'System Update', 'Maintenance', 'Alert', 'General']
+    > &
+      Schema.Attribute.DefaultTo<'General'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Created_By: Schema.Attribute.String;
+    Expire_Date: Schema.Attribute.DateTime;
+    Icon: Schema.Attribute.String;
+    Link_Url: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::admin-notification.admin-notification'
+    > &
+      Schema.Attribute.Private;
+    Message: Schema.Attribute.Text & Schema.Attribute.Required;
+    Priority: Schema.Attribute.Enumeration<
+      ['Low', 'Normal', 'High', 'Urgent']
+    > &
+      Schema.Attribute.DefaultTo<'Normal'>;
+    publishedAt: Schema.Attribute.DateTime;
+    Read_By: Schema.Attribute.JSON;
+    Status: Schema.Attribute.Enumeration<['Active', 'Expired', 'Draft']> &
+      Schema.Attribute.DefaultTo<'Active'>;
+    Target_Role: Schema.Attribute.Enumeration<
+      ['All', 'Farmer', 'Factory', 'Quality Inspection']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'All'>;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiBatchBatch extends Struct.CollectionTypeSchema {
   collectionName: 'batches';
   info: {
@@ -2063,6 +2114,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::admin-notification.admin-notification': ApiAdminNotificationAdminNotification;
       'api::batch.batch': ApiBatchBatch;
       'api::crop-type.crop-type': ApiCropTypeCropType;
       'api::export-factory-history.export-factory-history': ApiExportFactoryHistoryExportFactoryHistory;
