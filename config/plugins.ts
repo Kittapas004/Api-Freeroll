@@ -1,18 +1,9 @@
 export default ({ env }) => ({
   email: {
     config: {
-      provider: 'nodemailer',
+      provider: 'sendgrid',
       providerOptions: {
-        host: env('EMAIL_SMTP_HOST', 'smtp.sendgrid.net'),
-        port: parseInt(env('EMAIL_SMTP_PORT', '587')),
-        secure: false, // true for 465, false for other ports
-        auth: {
-          user: env('EMAIL_SMTP_USERNAME', 'apikey'),
-          pass: env('EMAIL_SMTP_PASSWORD'),
-        },
-        tls: {
-          rejectUnauthorized: false
-        }
+        apiKey: env('EMAIL_SMTP_PASSWORD'), // SendGrid API Key
       },
       settings: {
         defaultFrom: env('EMAIL_FROM', 'patpatkittaphat@gmail.com'),
