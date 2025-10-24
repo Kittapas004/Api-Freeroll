@@ -1,7 +1,7 @@
 module.exports = ({ env }) => ({
   email: {
     config: {
-      provider: 'nodemailer',
+      provider: '@strapi/provider-email-nodemailer',
       providerOptions: {
         host: env('EMAIL_SMTP_HOST', 'smtp.sendgrid.net'),
         port: env('EMAIL_SMTP_PORT', 587),
