@@ -1,9 +1,13 @@
 export default ({ env }) => ({
   email: {
     config: {
-      provider: 'sendgrid',
+      provider: 'nodemailer',
       providerOptions: {
-        apiKey: env('EMAIL_SMTP_PASSWORD'), // SendGrid API Key
+        service: 'gmail',
+        auth: {
+          user: env('EMAIL_FROM', 'patpatkittaphat@gmail.com'),
+          pass: env('GMAIL_APP_PASSWORD'), // Gmail App Password (NOT regular password)
+        },
       },
       settings: {
         defaultFrom: env('EMAIL_FROM', 'patpatkittaphat@gmail.com'),
