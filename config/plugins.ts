@@ -1,15 +1,12 @@
 export default ({ env }) => ({
   email: {
     config: {
-      provider: 'nodemailer',
+      // Use Brevo Transactional Email HTTP API to avoid SMTP egress issues on PaaS
+      // Custom provider implemented in ./providers/brevo
+      provider: './providers/brevo',
       providerOptions: {
-        host: 'smtp-relay.brevo.com',
-        port: 587,
-        secure: false,
-        auth: {
-          user: env('BREVO_SMTP_LOGIN'), // อีเมลที่สมัคร Brevo
-          pass: env('BREVO_SMTP_KEY'), // SMTP Key จาก Brevo
-        },
+        apiKey: env('BREVO_API_KEY'), // Brevo API key (Transactional emails)
+        senderName: env('EMAIL_FROM_NAME', 'Freeroll'),
       },
       settings: {
         defaultFrom: env('EMAIL_FROM', 'patpatkittaphat@gmail.com'),
