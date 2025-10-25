@@ -1,9 +1,15 @@
 export default ({ env }) => ({
   email: {
     config: {
-      provider: 'sendgrid',
+      provider: 'nodemailer',
       providerOptions: {
-        apiKey: env('EMAIL_SMTP_PASSWORD'), // SendGrid API Key ที่มีอยู่แล้ว
+        host: 'smtp-relay.brevo.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: env('BREVO_SMTP_LOGIN'), // อีเมลที่สมัคร Brevo
+          pass: env('BREVO_SMTP_KEY'), // SMTP Key จาก Brevo
+        },
       },
       settings: {
         defaultFrom: env('EMAIL_FROM', 'patpatkittaphat@gmail.com'),
