@@ -69,6 +69,18 @@ const provider = {
           throw new Error(`Brevo provider: invalid sender email format: "${senderParsed.email}". Set BREVO_SENDER_EMAIL (or EMAIL_FROM) to a verified address like someone@example.com`);
         }
 
+        // Warn if using a freemail domain which can fail DMARC/Google-Yahoo requirements
+        const freemailDomains = new Set([
+          'gmail.com', 'googlemail.com', 'yahoo.com', 'yahoo.co.th', 'hotmail.com', 'outlook.com', 'live.com', 'msn.com', 'icloud.com', 'aol.com'
+        ]);
+        const senderDomain = senderParsed.email.split('@')[1]?.toLowerCase();
+        if (senderDomain && freemailDomains.has(senderDomain)) {
+          console.warn(
+            `Brevo provider: Using a freemail sender (${senderParsed.email}). Delivery to Gmail/Yahoo may be blocked by DMARC. ` +
+            `Add and authenticate a custom domain in Brevo and use something like no-reply@yourdomain.com as BREVO_SENDER_EMAIL.`
+          );
+        }
+
         const payload = {
           sender: { email: senderParsed.email, name: senderParsed.name || senderName || 'Strapi' },
           to: normalizeTo(to),
@@ -98,7 +110,13 @@ const provider = {
           throw new Error(msg);
         }
 
-        return res.json().catch(() => ({}));
+        const json = await res.json().catch(() => ({}));
+        if (json?.messageId) {
+          console.info(`Brevo provider: accepted, messageId=${json.messageId}`);
+        } else {
+          console.info('Brevo provider: accepted (no messageId in response)');
+        }
+        return json;
       },
     };
   },
