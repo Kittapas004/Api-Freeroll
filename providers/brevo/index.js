@@ -60,8 +60,10 @@ const provider = {
       async send(options = {}) {
         const { to, from, replyTo, subject, text, html } = options;
 
-        // Determine sender (allow RFC5322 string or object). Fallback to settings.defaultFrom
-        const senderParsed = parseAddress(from) || parseAddress(settings.defaultFrom);
+  // Determine sender:
+  // Prefer settings.defaultFrom so we always use a validated sender from env,
+  // even if some upstream code (e.g., plugin templates) sets an unverified `from` like no-reply@strapi.io
+  const senderParsed = parseAddress(settings.defaultFrom) || parseAddress(from);
         if (!senderParsed?.email) {
           throw new Error('Brevo provider: missing `from` and no `defaultFrom` set. Please set BREVO_SENDER_EMAIL (or EMAIL_FROM) to a validated sender address in Brevo.');
         }
