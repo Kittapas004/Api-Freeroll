@@ -409,10 +409,14 @@ export interface ApiAdminNotificationAdminNotification
     Status: Schema.Attribute.Enumeration<['Active', 'Expired', 'Draft']> &
       Schema.Attribute.DefaultTo<'Active'>;
     Target_Role: Schema.Attribute.Enumeration<
-      ['All', 'Farmer', 'Factory', 'Quality Inspection']
+      ['All', 'Farmer', 'Factory', 'Quality Inspection', 'Specific Users']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'All'>;
+    Target_Users: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
     Title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1378,9 +1382,11 @@ export interface ApiLabLab extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    Contact_person: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    Email: Schema.Attribute.Email;
     exported: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     Lab_Name: Schema.Attribute.String;
     lab_submission_records: Schema.Attribute.Relation<
@@ -1390,7 +1396,13 @@ export interface ApiLabLab extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::lab.lab'> &
       Schema.Attribute.Private;
+    Phone: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    Status_Lab: Schema.Attribute.Enumeration<
+      ['Active', 'Inactive', 'Maintenance']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Active'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

@@ -29,6 +29,25 @@
     "exported": {
       "type": "boolean",
       "default": false
+    },
+    "Status_Lab": {
+      "type": "enumeration",
+      "enum": [
+        "Active",
+        "Inactive",
+        "Maintenance"
+      ],
+      "default": "Active",
+      "required": true
+    },
+    "Contact_person": {
+      "type": "string"
+    },
+    "Phone": {
+      "type": "string"
+    },
+    "Email": {
+      "type": "email"
     }
   }
 }

@@ -25,10 +25,16 @@
         "All",
         "Farmer",
         "Factory",
-        "Quality Inspection"
+        "Quality Inspection",
+        "Specific Users"
       ],
       "required": true,
       "default": "All"
+    },
+    "Target_Users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
     },
     "Priority": {
       "type": "enumeration",
